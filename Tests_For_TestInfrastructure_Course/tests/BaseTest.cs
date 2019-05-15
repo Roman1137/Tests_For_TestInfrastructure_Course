@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Tests_For_TestInfrastructure_Course.app;
+using Tests_For_TestInfrastructure_Course.pageElement;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {
@@ -7,16 +8,25 @@ namespace Tests_For_TestInfrastructure_Course.tests
     {
         protected Application App { get; set; }
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             this.App = new Application();
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             this.App.Quit();
+        }
+
+        [TearDown]
+        public void DeleteAllItems()
+        {
+            foreach (var toDoItem in this.App.ToDoPage.ToDoItems)
+            {
+                toDoItem.Delete();
+            }
         }
     }
 }
