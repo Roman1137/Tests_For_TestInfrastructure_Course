@@ -24,7 +24,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
             App.ToDoPage.ToDoItems.First().IsCompleted().Should().BeTrue();
 
             App.ToDoPage.FilterByActive();
-            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
         }
     }
 }

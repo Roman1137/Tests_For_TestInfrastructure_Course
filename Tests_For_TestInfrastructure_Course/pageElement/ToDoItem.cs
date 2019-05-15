@@ -34,7 +34,8 @@ namespace Tests_For_TestInfrastructure_Course.pageElement
 
         public void Delete()
         {
-            this._webElement.FindElement(By.CssSelector("button.destroy")).Click();
+            var deleteButton =  this._webElement.FindElement(By.CssSelector("button.destroy"));
+            ((IJavaScriptExecutor) Driver).ExecuteScript("arguments[0].click();", deleteButton);
         }
 
         public void Edit(string newValue)

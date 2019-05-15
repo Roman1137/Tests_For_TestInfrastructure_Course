@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 
 namespace Tests_For_TestInfrastructure_Course.tests
@@ -18,7 +15,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
             App.ToDoPage.ToDoItems.Should().NotBeEmpty();
 
             App.ToDoPage.FilterByCompleted();
-            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
 
             App.ToDoPage.FilterByActive();
             App.ToDoPage.ToDoItems.Should().NotBeEmpty();
