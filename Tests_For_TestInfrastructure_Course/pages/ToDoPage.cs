@@ -16,7 +16,9 @@ namespace Tests_For_TestInfrastructure_Course.pages
             get
             {
                 var todoWebElements = Driver.FindElements(By.CssSelector(".main .todo-list .todo"));
-                return todoWebElements.Select(el => new ToDoItem(App, el)).ToList();
+                return todoWebElements.Count > 0
+                    ? todoWebElements.Select(el => new ToDoItem(App, el)).ToList()
+                    : new List<ToDoItem>();
             }
         }
 
@@ -40,10 +42,9 @@ namespace Tests_For_TestInfrastructure_Course.pages
             Driver.FindElement(By.CssSelector("footer .filters a[href='#/completed']")).Click();
         }
 
-        public int ItemsLeftCount()
+        public string ItemsLeftCount()
         {
-            string countText = Driver.FindElement(By.CssSelector("footer .todo-count strong")).Text;
-            return int.Parse(countText);
+            return Driver.FindElement(By.CssSelector("footer .todo-count strong")).Text;
         }
 
         public void CreateItem(string name)
