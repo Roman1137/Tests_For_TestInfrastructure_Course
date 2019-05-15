@@ -8,14 +8,18 @@ namespace Tests_For_TestInfrastructure_Course.pageElement
     public class ToDoItem : BaseElement
     {
         private readonly IWebElement _webElement;
-        public ToDoItem(Application app) : base(app) { }
+        
+        public ToDoItem(Application app, IWebElement webElement) : base(app)
+        {
+            this._webElement = webElement;
+        }
 
         public bool IsCompleted()
         {
             var classes = this._webElement.GetAttribute("class");
-            var splited = classes.Split(" ");
+            var splitedClasses = classes.Split(" ");
 
-            return splited.Contains("completed");
+            return splitedClasses.Contains("completed");
         }
 
         public string GetText()
