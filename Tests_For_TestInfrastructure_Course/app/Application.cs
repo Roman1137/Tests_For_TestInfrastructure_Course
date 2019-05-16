@@ -3,7 +3,9 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using Tests_For_TestInfrastructure_Course.config;
 using Tests_For_TestInfrastructure_Course.pages;
 
 namespace Tests_For_TestInfrastructure_Course.app
@@ -17,7 +19,9 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public Application()
         {
-            this.Driver = new ChromeDriver();
+            var options = new ChromeOptions();
+            this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+
             this.Driver.Manage().Window.Maximize();
             this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
             

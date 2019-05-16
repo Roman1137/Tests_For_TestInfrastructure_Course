@@ -3,6 +3,7 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
+    <Parameter name="SeleniumGridUrl" value="http://localhost:4444/wd/hub"/>>
 
     <!--WebDriver-->
     <Parameter name="Browser" value="Chrome"/>
