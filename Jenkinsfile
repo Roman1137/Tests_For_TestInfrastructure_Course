@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'microsoft/dotnet:2.1-aspnetcore-runtime' 
+            image 'microsoft/dotnet:2.2-sdk'
             args '-p 3000:3000' 
         }
     }
