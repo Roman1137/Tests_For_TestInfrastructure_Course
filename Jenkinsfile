@@ -7,7 +7,9 @@ pipeline {
 	}
     stages {
 		stage('Verify docker') {
-			agent none
+			agent {
+				label 'MASTER'
+			}
 			steps {
                 sh 'docker ps' 
             }
