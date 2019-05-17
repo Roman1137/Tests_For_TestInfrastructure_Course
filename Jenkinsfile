@@ -4,6 +4,8 @@ pipeline {
 	}
 	environment {
 		NETWORK_NAME = "my-network"
+		BROWSER_NAME = "my-chrome"
+		BROWSER_URL = "http://${BROWSER_NAME}:4444/wd/hub"
 	}
     stages {
 		stage('Prepare environment') {
@@ -25,7 +27,7 @@ pipeline {
 				}
 			}
             steps {
-                sh 'dotnet build && dotnet test --settings config/docker.runsettings' 
+                sh 'dotnet build && dotnet test --settings config/docker.runsettings -- SeleniumGridUrl=${BROWSER_URL}' 
             }
         }
     }
