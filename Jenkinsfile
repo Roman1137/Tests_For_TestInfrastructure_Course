@@ -5,7 +5,7 @@ pipeline {
     stages {
 		stage('Start Chrome') {
 			steps {
-				sh 'docker rm -f temporary-chrome || true'
+				sh 'docker rm -f my-chrome || true'
                 sh 'docker run --rm --name my-chrome -d --privileged --network my-network selenium/standalone-chrome:3.141.59'
             }
 		}
