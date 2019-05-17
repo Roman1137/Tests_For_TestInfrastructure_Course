@@ -33,7 +33,7 @@ pipeline {
                 sh 'docker run --rm --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59'
             }
 		}
-        stage('Test') {
+        stage('Run tests') {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
