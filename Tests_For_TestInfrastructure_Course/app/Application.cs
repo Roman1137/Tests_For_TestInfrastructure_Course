@@ -16,6 +16,7 @@ namespace Tests_For_TestInfrastructure_Course.app
         public WebDriverWait Wait { get; set; }
 
         public ToDoPage ToDoPage { get; set; }
+        private static string AllureConfigDir = Environment.CurrentDirectory;
 
         public Application()
         {

@@ -8,11 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Noksa.NUnit.Allure" Version="2.5.2" />
     <PackageReference Include="nunit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="74.0.3729.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="C:\Users\Roman_Borodavka\.nuget\packages\noksa.nunit.allure\2.5.2\contentFiles\any\netstandard2.0\allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
