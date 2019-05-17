@@ -41,9 +41,9 @@ pipeline {
 			}
             steps {
 				sh 'cat Tests_For_TestInfrastructure_Course/config/docker.runsettings'
-				sh "sed 's/ToDoApplicationUrl_Value/${FRONTEND_URL}/g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
+				sh 'sed s/ToDoApplicationUrl_Value/${FRONTEND_URL} Tests_For_TestInfrastructure_Course/config/docker.runsettings'
 				sh 'cat Tests_For_TestInfrastructure_Course/config/docker.runsettings'
-				sh "sed 's/SeleniumGridUrl_Value/${BROWSER_URL}/g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
+				sh 'sed s/SeleniumGridUrl_Value/${BROWSER_URL} Tests_For_TestInfrastructure_Course/config/docker.runsettings'
 				sh 'cat Tests_For_TestInfrastructure_Course/config/docker.runsettings'
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
             }
