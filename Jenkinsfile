@@ -40,6 +40,7 @@ pipeline {
 				}
 			}
             steps {
+				echo ${FRONTEND_URL}
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings -- SeleniumGridUrl=${BROWSER_URL} ToDoApplicationUrl=${FRONTEND_URL}' 
             }
         }
