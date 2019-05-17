@@ -45,7 +45,7 @@ pipeline {
 				sh cat filename config/docker.runsettings'
 				sh "sed 's/SeleniumGridUrl_Value/${BROWSER_URL}/g' config/docker.runsettings"
 				sh 'cat filename config/docker.runsettings'
-                sh 'dotnet build && dotnet test --settings config/docker.runsettings
+                sh 'dotnet build && dotnet test --settings config/docker.runsettings'
             }
         }
     }
