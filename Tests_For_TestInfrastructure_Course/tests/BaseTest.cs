@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.IO;
+using NUnit.Framework;
 using Tests_For_TestInfrastructure_Course.app;
 
 namespace Tests_For_TestInfrastructure_Course.tests
@@ -10,6 +12,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
         [OneTimeSetUp]
         public void SetUp()
         {
+            Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
             this.App = new Application();
         }
 
