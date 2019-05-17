@@ -2,7 +2,6 @@
 <RunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
-    <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
 
     <!--WebDriver-->
     <Parameter name="Browser" value="Chrome"/>

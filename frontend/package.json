@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "scripts": {
+        "start": "http-server",
+        "docker-build": "docker build --no-cache -t example:todo-app ./",
+        "docker-run": "docker run --name todo-app --rm -d -p 8080:80 example:todo-app"
+    },
+    "dependencies": {
+        "director": "^1.2.0",
+        "vue": "^2.1.8",
+        "todomvc-common": "^1.0.1",
+        "todomvc-app-css": "^2.0.0",
+        "http-server": "0.11.1"
+    }
+}
