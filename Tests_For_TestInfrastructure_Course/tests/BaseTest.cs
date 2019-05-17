@@ -1,11 +1,9 @@
-﻿using Allure.Commons;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Tests_For_TestInfrastructure_Course.app;
-using Tests_For_TestInfrastructure_Course.pageElement;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {
-    public class BaseTest: AllureReport
+    public class BaseTest
     {
         protected Application App { get; set; }
 

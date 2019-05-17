@@ -1,10 +1,12 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class CompleteElementsTests: BaseTest
     {
         [Test]

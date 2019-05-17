@@ -1,9 +1,11 @@
 ﻿using FluentAssertions;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class CreateElementsTests: BaseTest
     {
         [Test]

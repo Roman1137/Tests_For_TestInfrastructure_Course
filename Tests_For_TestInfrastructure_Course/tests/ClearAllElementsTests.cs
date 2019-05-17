@@ -1,13 +1,19 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {
     [TestFixture]
+    [AllureNUnit]
     public class ClearAllElementsTests: BaseTest
     {
         [Test]
+        [AllureTag("NUnit","Debug")]
+        [AllureIssue("GitHub#1", "https://github.com/unickq/allure-nunit")]
+        [AllureFeature("Core")]
         public void ClearCompleted_Should_Remove_All_Completed_Elements()
         {
             App.ToDoPage.Open();
