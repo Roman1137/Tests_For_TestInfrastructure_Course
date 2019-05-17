@@ -1,5 +1,7 @@
 pipeline {
-	agent none
+	agent {
+		label 'MASTER'
+	}
     stages {
 		stage('Verify docker') {
 			steps {
