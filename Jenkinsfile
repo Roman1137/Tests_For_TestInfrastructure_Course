@@ -48,6 +48,15 @@ pipeline {
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
             }
         }
+		stage('Reports') {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results']]
+                ])
+            }
     }
 	post {
 		always {
