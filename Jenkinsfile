@@ -40,6 +40,7 @@ pipeline {
 				}
 			}
             steps {
+				sh "ls"
 				sh 'cat filename config/docker.runsettings'
 				sh "sed 's/ToDoApplicationUrl_Value/${FRONTEND_URL}/g' config/docker.runsettings"
 				sh 'cat filename config/docker.runsettings'
