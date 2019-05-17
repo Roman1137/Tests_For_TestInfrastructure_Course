@@ -2,6 +2,8 @@
 <RunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
+    <Parameter name="ToDoApplicationUrl" value="ToDoApplicationUrl_Value"/>>
+    <Parameter name="SeleniumGridUrl" value="SeleniumGridUrl_Value"/>>
 
     <!--WebDriver-->
     <Parameter name="Browser" value="Chrome"/>
