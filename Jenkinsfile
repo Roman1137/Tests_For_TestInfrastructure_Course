@@ -3,6 +3,7 @@ pipeline {
 		label 'master'
 	}
 	environment {
+		HOME = '/tmp'
 		NETWORK_NAME = "my-network"
 		
 		BROWSER_NAME = "my-chrome"
