@@ -17,7 +17,7 @@ pipeline {
 				}
 			}
             steps {
-                sh 'dotnet test --settings config/test.runsettings' 
+                sh 'dotnet build && dotnet test --settings config/test.runsettings' 
             }
         }
     }
