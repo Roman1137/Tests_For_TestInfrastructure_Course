@@ -22,7 +22,7 @@ pipeline {
 				dir("frontend"){
 					sh 'docker rm -f ${FRONTEND_NAME} || true'
 					sh 'docker build --no-cache -t ${FRONTEND_NAME}:edge .'
-					sh 'docker run -rm --name ${FRONTEND_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${FRONTEND_NAME}:edge'
+					sh 'docker run --rm --name ${FRONTEND_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${FRONTEND_NAME}:edge'
 				}
 			}
 		}
