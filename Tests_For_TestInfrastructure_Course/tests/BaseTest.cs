@@ -13,6 +13,9 @@ namespace Tests_For_TestInfrastructure_Course.tests
         [OneTimeSetUp]
         public void SetUp()
         {
+            Environment.SetEnvironmentVariable(
+                AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
+                Path.Combine(Environment.CurrentDirectory, AllureConstants.CONFIG_FILENAME));
             this.App = new Application();
         }
 

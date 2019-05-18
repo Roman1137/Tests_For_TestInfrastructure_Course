@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Allure.Commons" Version="2.4.2.4" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="nunit" Version="3.10.1" />
     <PackageReference Include="NUnit.Allure" Version="1.0.5" />
