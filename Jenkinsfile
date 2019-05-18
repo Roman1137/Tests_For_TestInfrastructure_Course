@@ -5,7 +5,7 @@ pipeline {
     stages {
 		stage('Reports') {
 			steps {
-				dir("/var/jenkins_home/workspace/UI_Tests_With_Allure/allure-report"){
+				dir("/var/jenkins_home/workspace/Allure_Only/allure-report"){
 					sh "ls"
 				}
 				script {
