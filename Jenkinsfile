@@ -37,7 +37,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --network ${NETWORK_NAME} -v "C:\project\allureResults":/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/' 
+					args '-p 3000:3000 --network ${NETWORK_NAME} -v "C:/project/allureResults":/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/' 
 				}
 			}
             steps {
