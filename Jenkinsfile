@@ -37,7 +37,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --network ${NETWORK_NAME} -v "C:/project/allureResults":/home' 
+					args '-p 3000:3000 --network ${NETWORK_NAME}' 
 				}
 			}
             steps {
@@ -52,7 +52,7 @@ pipeline {
 		stage('Reports') {
 			steps {
 				// copying result to Allure-report folder
-				sh "cp -a jenkins_home/workspace/UI_Tests_With_Allure@2/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/. /var/jenkins_home/workspace/UI_Tests_With_Allure@2"
+				//sh "cp -a jenkins_home/workspace/UI_Tests_With_Allure@2/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/. /var/jenkins_home/workspace/UI_Tests_With_Allure@2"
 				script {
 						allure([
 								includeProperties: false,
