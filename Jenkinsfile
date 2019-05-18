@@ -53,9 +53,7 @@ pipeline {
 			steps {
 				// copying result to Allure-report folder
 				//sh "cp -a jenkins_home/workspace/UI_Tests_With_Allure@2/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/. /var/jenkins_home/workspace/UI_Tests_With_Allure@2"
-				dir("/var/jenkins_home/workspace/UI_Tests_With_Allure/allure-report"){
-					sh "ls"
-				}
+				sh 'behave -f allure_behave.formatter:AllureFormatter -o ./allure-results'
 				script {
 						allure([
 								includeProperties: false,
