@@ -41,8 +41,9 @@ pipeline {
 				}
 			}
             steps {
-				//
-				sh "pwd"
+				// REMOVE AS SOON AS FIXED! adding allureConfig.json to package folder
+				sh "cp Tests_For_TestInfrastructure_Course/allureConfig.json /tmp/.nuget/packages/allure.commons/2.3.64.1/lib/netstandard2.0/"
+				
 				// setting value to config file
 				sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
