@@ -51,7 +51,7 @@ pipeline {
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
             }
         }
-		stage('reports') {
+		stage('Reports') {
 			steps {
 				script {
 						allure([
