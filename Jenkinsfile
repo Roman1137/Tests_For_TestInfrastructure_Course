@@ -37,7 +37,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --network ${NETWORK_NAME} -v "C:/project/allureResults":/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/' 
+					args '-p 3000:3000 --network ${NETWORK_NAME}' 
 				}
 			}
             steps {
@@ -46,6 +46,7 @@ pipeline {
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
+				sh "pwd"
             }
         }
 		stage('Reports') {
