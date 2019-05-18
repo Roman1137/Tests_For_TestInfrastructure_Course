@@ -41,6 +41,8 @@ pipeline {
 				}
 			}
             steps {
+				//
+				sh "pwd"
 				// setting value to config file
 				sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"

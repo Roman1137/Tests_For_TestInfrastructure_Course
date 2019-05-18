@@ -16,4 +16,10 @@
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="74.0.3729.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

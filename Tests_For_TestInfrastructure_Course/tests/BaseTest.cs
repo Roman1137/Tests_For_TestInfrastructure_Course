@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Allure.Commons;
 using NUnit.Framework;
 using Tests_For_TestInfrastructure_Course.app;
 
@@ -12,7 +13,6 @@ namespace Tests_For_TestInfrastructure_Course.tests
         [OneTimeSetUp]
         public void SetUp()
         {
-            Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
             this.App = new Application();
         }
 
