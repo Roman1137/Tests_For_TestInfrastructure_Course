@@ -11,6 +11,8 @@ pipeline {
 		
 		FRONTEND_NAME = "todo-app"
 		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"
+		
+		DOTNET_AGENT_NAME="my-dotnet-agent"
 	}
     stages {
 		stage('Prepare environment') {
@@ -37,7 +39,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '--rm -p 3000:3000 --network ${NETWORK_NAME}' 
+					args '-p 3000:3000 --network ${NETWORK_NAME} --name ${DOTNET_AGENT_NAME}' 
 				}
 			}
             steps {
@@ -74,6 +76,7 @@ pipeline {
     }
 	post {
 		always {
+			sh 'docker rm -f ${DOTNET_AGENT_NAME} || true'
 		  sh 'docker rm -f ${FRONTEND_NAME} || true'
 		  sh 'docker rm -f ${BROWSER_NAME} || true'
 		  sh 'docker network rm ${NETWORK_NAME}'
