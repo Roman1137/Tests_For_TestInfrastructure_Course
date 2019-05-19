@@ -51,7 +51,9 @@ pipeline {
 				script{
                     //zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
 					archiveArtifacts artifacts: 'allure-results.zip'
-                } 
+                }
+
+				sh "rm -r *"
             }
         }
 		stage('Reports') {
