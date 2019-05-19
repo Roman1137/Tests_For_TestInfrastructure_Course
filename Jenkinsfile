@@ -46,7 +46,9 @@ pipeline {
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
-				archiveArtifacts artifacts: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+				
+				zip zipFile: 'allure-results.zip', archive: false, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+                archiveArtifacts artifacts: 'allure-results.zip'
             }
         }
 		stage('Reports') {
