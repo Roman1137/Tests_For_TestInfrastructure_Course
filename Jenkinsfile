@@ -30,14 +30,14 @@ pipeline {
 		stage('Start Browser') {
 			steps {
 				sh 'docker rm -f ${BROWSER_NAME} || true'
-                sh 'docker run --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59'
+                sh 'docker run --rm --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59'
             }
 		}
         stage('Run tests') {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --rm --network ${NETWORK_NAME}' 
+					args '-p 3000:3000 --network ${NETWORK_NAME}' 
 				}
 			}
             steps {
@@ -49,7 +49,7 @@ pipeline {
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
 				script{
-                    //zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+                    zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
 					archiveArtifacts artifacts: 'allure-results.zip'
                 }
 
