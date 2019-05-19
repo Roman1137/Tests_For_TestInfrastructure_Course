@@ -37,7 +37,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --network ${NETWORK_NAME}' 
+					args '-p 3000:3000 --rm --network ${NETWORK_NAME}' 
 				}
 			}
             steps {
@@ -75,7 +75,6 @@ pipeline {
     }
 	post {
 		always {
-		  sh 'docker rmi -f microsoft/dotnet:2.2-sdk || true'
 		  sh 'docker rm -f ${FRONTEND_NAME} || true'
 		  sh 'docker rm -f ${BROWSER_NAME} || true'
 		  sh 'docker network rm ${NETWORK_NAME}'
