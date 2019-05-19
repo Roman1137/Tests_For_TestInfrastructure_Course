@@ -37,7 +37,7 @@ pipeline {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args '-p 3000:3000 --network ${NETWORK_NAME}' 
+					args '-rm -p 3000:3000 --network ${NETWORK_NAME}' 
 				}
 			}
             steps {
