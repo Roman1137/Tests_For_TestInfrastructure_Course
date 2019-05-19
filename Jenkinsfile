@@ -50,7 +50,7 @@ pipeline {
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
 				script{
-                    zip zipFile: 'allure-results.zip', archive: false, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+                    zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
 					archiveArtifacts artifacts: 'allure-results.zip'
                 } 
             }
@@ -76,7 +76,7 @@ pipeline {
     }
 	post {
 		always {
-			sh 'docker rm -f ${DOTNET_AGENT_NAME} || true'
+		  sh 'docker rm -f ${DOTNET_AGENT_NAME} || true'
 		  sh 'docker rm -f ${FRONTEND_NAME} || true'
 		  sh 'docker rm -f ${BROWSER_NAME} || true'
 		  sh 'docker network rm ${NETWORK_NAME}'
