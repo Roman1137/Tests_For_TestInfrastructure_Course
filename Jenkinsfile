@@ -30,7 +30,7 @@ pipeline {
 		stage('Start Browser') {
 			steps {
 				sh 'docker rm -f ${BROWSER_NAME} || true'
-                sh 'docker run --rm --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59'
+                sh 'docker run --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59'
             }
 		}
         stage('Run tests') {
