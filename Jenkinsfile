@@ -48,7 +48,7 @@ pipeline {
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
 				script{
-                    zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+                    zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
 					stash 'allure-results.zip'
                 }
             }

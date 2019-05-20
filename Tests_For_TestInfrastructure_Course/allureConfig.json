@@ -1,8 +1,9 @@
 {
   "allure": {
-    "directory": "allure-results", // optional, default value is "allure-results"
+    // specifying ../../../ before allure-results makes allure-results be generated in the project root folder
+    "directory": "../../../allure-results", // optional, default value is "allure-results"
     "title": "custom run title", // optional
-    "links": //optional 
+    "links": //optional
     [
       "https://example.org/{link}",
       "https://example.org/{issue}",
