@@ -40,14 +40,11 @@ pipeline {
 				}
 			}
             steps {
-				saveDotnetWorkspaceName()
-				cleanDotnetWorkspace()
-				updateTestConfigFile()
+				saveDotnetWorkspaceName();
+				updateTestConfigFile();
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
-				
-
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
 					stash 'allure-results.zip'
