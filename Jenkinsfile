@@ -1,5 +1,3 @@
-def DOTNET_WORKSPACE;
-
 pipeline {
 	agent {
 		label 'master'
@@ -50,10 +48,7 @@ pipeline {
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
-				echo "${env.WORKSPACE}"
-				script{
-					DOTNET_WORKSPACE = "${env.WORKSPACE}"
-				}
+				saveDotnetWorkspace()
 
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
@@ -88,4 +83,12 @@ pipeline {
 			sh "rm -r ${DOTNET_WORKSPACE}/*"
 		}    
   }
+}
+
+def DOTNET_WORKSPACE;
+
+def saveDotnetWorkspace() {
+	script {
+		DOTNET_WORKSPACE = "${env.WORKSPACE}"
+	}
 }
