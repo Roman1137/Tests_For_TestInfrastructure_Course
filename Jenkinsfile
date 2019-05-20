@@ -58,7 +58,7 @@ pipeline {
         }
 		stage('Reports') {
 			steps {
-				sh "ls"
+				sh "ls -a"
 				sh "pwd"
 				sh "find . -name allure-results.zip"
 				script{
