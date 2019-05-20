@@ -40,6 +40,7 @@ pipeline {
 				}
 			}
             steps {
+				saveDotnetWorkspaceName()
 				cleanDotnetWorkspace()
 				updateTestConfigFile()
 				
