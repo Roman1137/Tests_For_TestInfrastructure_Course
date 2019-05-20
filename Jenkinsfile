@@ -61,7 +61,7 @@ pipeline {
 				sh "ls"
 				sh "pwd"
 				script{
-                    unzip zipFile: '$JENKINS_HOME/jobs//jobs//branches//builds/$BUILD_NUMBER/archive/allure-results.zip', dir: 'target/allure-results'
+                    unzip zipFile: '/var/jenkins_home/workspace/Allure_adding/archive/allure-results.zip', dir: 'target/allure-results'
                 }
 				
 				script {
