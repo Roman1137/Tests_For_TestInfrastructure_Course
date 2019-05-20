@@ -3,6 +3,8 @@ pipeline {
 		label 'master'
 	}
 	environment {
+		// HOME helps to avoid permission error
+		HOME = '/tmp'
 		NETWORK_NAME = "my-network"
 		
 		BROWSER_NAME = "my-chrome"
