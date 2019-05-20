@@ -84,14 +84,14 @@ pipeline {
 
 def DOTNET_WORKSPACE;
 
-def saveDotnetWorkspaceName() {
-	script {
-		DOTNET_WORKSPACE = "${env.WORKSPACE}"
-	}
+def getDotnetWorkspaceName() {
+	return DOTNET_WORKSPACE == null 
+		? "${env.WORKSPACE}" 
+		: DOTNET_WORKSPACE;
 }
 
 def cleanDotnetWorkspace() {
-	def DOTNET_WORKSPACE = DOTNET_WORKSPACE == null ? "${env.WORKSPACE}" DOTNET_WORKSPACE;
+	def DOTNET_WORKSPACE = getDotnetWorkspaceName();
 	sh "rm -r ${DOTNET_WORKSPACE}/*"
 }
 
