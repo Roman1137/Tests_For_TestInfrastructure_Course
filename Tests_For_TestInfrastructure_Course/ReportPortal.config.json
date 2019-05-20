@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/reportportal/agent-net-nunit/master/ReportPortal.NUnitExtension/ReportPortal.config.schema",
+  "enabled": true,
+  "server": {
+    "url": "http://ip-5236.sunline.net.ua:10580/api/v1",
+    "project": "test-infrastructure-project",
+    "authentication": {
+      "uuid": "51e64352-0915-49ef-bee1-069e53a57c5c"
+    }
+  },
+  "launch": {
+    "name": "TEST_LAUNCH_FROM_DOTNET",
+    "description": "JENKINS URL",
+    "debugMode": false,
+    "tags": [ "e2e", "wedbdriverio" ]
+  }
+}
