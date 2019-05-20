@@ -40,7 +40,7 @@ pipeline {
 				}
 			}
             steps {
-				cleanDotnetWorkspace()
+				saveDotnetWorkspaceName()
 				updateTestConfigFile()
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
@@ -84,11 +84,14 @@ pipeline {
 
 def DOTNET_WORKSPACE;
 
-def cleanDotnetWorkspace() {
-	script{
-		DOTNET_WORKSPACE = DOTNET_WORKSPACE == null ? "${env.WORKSPACE}" : DOTNET_WORKSPACE;
-		sh "rm -r ${DOTNET_WORKSPACE}/*"
+def saveDotnetWorkspaceName() {
+	script {
+		DOTNET_WORKSPACE = "${env.WORKSPACE}"
 	}
+}
+
+def cleanDotnetWorkspace() {
+	sh "rm -r ${DOTNET_WORKSPACE}/*"
 }
 
 def updateTestConfigFile() {
