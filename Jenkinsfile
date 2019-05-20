@@ -53,7 +53,7 @@ pipeline {
                 }
 				
 				script{
-                    zip zipFile: 'trx-results.zip', archive: true, dir: 'trx-results'
+                    zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
 					stash 'trx-results.zip'
                 }
             }
