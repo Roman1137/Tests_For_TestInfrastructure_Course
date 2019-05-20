@@ -41,22 +41,35 @@ pipeline {
 				}
 			}
             steps {
+				sh "ls"
 				// setting value to config file
 				sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
+				
+				script{
+                    zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
+					archiveArtifacts artifacts: 'allure-results.zip'
+                }
+
+				sh "rm -r *"
             }
         }
-		stage('reports') {
+		stage('Reports') {
 			steps {
+				// copying result to Allure-report folder
+				//sh "cp -a jenkins_home/workspace/UI_Tests_With_Allure@2/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results/. /var/jenkins_home/workspace/UI_Tests_With_Allure@2"
+				dir("/var/jenkins_home/workspace/UI_Tests_With_Allure/allure-report"){
+					sh "ls"
+				}
 				script {
 						allure([
 								includeProperties: false,
 								jdk: '',
 								properties: [],
 								reportBuildPolicy: 'ALWAYS',
-								results: [[path: 'target/Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results']]
+								results: [[path: 'target/allure-results']]
 						])
 				}
 			}

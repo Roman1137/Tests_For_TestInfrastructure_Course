@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Allure.Commons" Version="2.4.2.4" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="nunit" Version="3.10.1" />
     <PackageReference Include="NUnit.Allure" Version="1.0.5" />
@@ -14,6 +15,12 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="74.0.3729.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="allureConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
