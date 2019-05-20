@@ -12,6 +12,6 @@
     "name": "TEST_LAUNCH_FROM_DOTNET",
     "description": "JENKINS URL",
     "debugMode": false,
-    "tags": [ "e2e", "wedbdriverio" ]
+    "tags": [ "UI Tests", "C#" ]
   }
 }
