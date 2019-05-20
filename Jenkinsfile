@@ -10,6 +10,8 @@ pipeline {
 		
 		FRONTEND_NAME = "todo-app"
 		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"
+		
+		DOTNET_WORKSPACE = ''
 	}
     stages {
 		stage('Prepare environment') {
@@ -52,7 +54,7 @@ pipeline {
                 }
 				
 				script{
-					def DOTNET_WORKSPACE = env.WORKSPACE
+					env.DOTNET_WORKSPACE = env.WORKSPACE
 				}
             }
         }
@@ -80,7 +82,7 @@ pipeline {
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
-			sh "rm -r ${DOTNET_WORKSPACE}/*"
+			sh "rm -r ${env.DOTNET_WORKSPACE}/*"
 		}    
   }
 }
