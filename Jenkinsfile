@@ -60,6 +60,7 @@ pipeline {
 			steps {
 				sh "ls"
 				sh "pwd"
+				sh "find . -name allure-results.zip"
 				script{
                     unzip zipFile: '/var/jenkins_home/workspace/Allure_adding/archive/allure-results.zip', dir: 'target/allure-results'
                 }
