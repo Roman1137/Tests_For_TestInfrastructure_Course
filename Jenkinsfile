@@ -84,14 +84,11 @@ pipeline {
 
 def DOTNET_WORKSPACE;
 
-def getDotnetWorkspaceName() {
-	return DOTNET_WORKSPACE == null 
-		? "${env.WORKSPACE}" 
-		: "${DOTNET_WORKSPACE}";
-}
-
 def cleanDotnetWorkspace() {
-	sh "rm -r ${getDotnetWorkspaceName()}/*"
+	script{
+		DOTNET_WORKSPACE = DOTNET_WORKSPACE == null ? "${env.WORKSPACE}" : DOTNET_WORKSPACE;
+		sh "rm -r ${DOTNET_WORKSPACE}/*"
+	}
 }
 
 def updateTestConfigFile() {
