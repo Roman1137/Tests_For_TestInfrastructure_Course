@@ -74,7 +74,7 @@ pipeline {
     }
 	post {
 		always {
-			sh "rm -r ${env.WORKSPACE}/*"
+			sh "rm -r ${env.WORKSPACE}*/*"
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
