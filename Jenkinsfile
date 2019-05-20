@@ -79,7 +79,7 @@ pipeline {
 			sh 'docker network rm ${NETWORK_NAME}'
 			cleanDotnetWorkspace()
 		}    
-  }
+    }
 }
 
 def DOTNET_WORKSPACE;
@@ -91,10 +91,12 @@ def saveDotnetWorkspaceName() {
 }
 
 def cleanDotnetWorkspace() {
-	if(DOTNET_WORKSPACE == null) 
-	{
-		saveDotnetWorkspaceName()
+	script{
+		if(DOTNET_WORKSPACE == null) {
+			saveDotnetWorkspaceName()
+	    }
 	}
+	
 	sh "rm -r ${DOTNET_WORKSPACE}/*"
 }
 
