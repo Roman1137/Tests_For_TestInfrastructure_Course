@@ -50,11 +50,8 @@ pipeline {
 				
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
-					//archiveArtifacts artifacts: 'allure-results.zip'
 					stash 'allure-results.zip'
                 }
-
-				sh "rm -r *"
             }
         }
 		stage('Reports') {
@@ -78,6 +75,7 @@ pipeline {
     }
 	post {
 		always {
+		  sh "rm -r /var/jenkins_home/workspace/Allure_adding@2/*"
 		  sh 'docker rm -f ${FRONTEND_NAME} || true'
 		  sh 'docker rm -f ${BROWSER_NAME} || true'
 		  sh 'docker network rm ${NETWORK_NAME}'
