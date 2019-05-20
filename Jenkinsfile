@@ -73,7 +73,8 @@ pipeline {
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
-			cleanDotnetWorkspace()
+			cleanDotnetWorkspace();
+			cleanJenkinsWorkspace();
 		}    
     }
 }
@@ -88,6 +89,10 @@ def saveDotnetWorkspaceName() {
 
 def cleanDotnetWorkspace() {	
 	sh "rm -r ${DOTNET_WORKSPACE}/*"
+}
+
+def cleanJenkinsWorkspace() {	
+	sh "rm -r ${env.WORKSPACE}/*"
 }
 
 def updateTestConfigFile() {
