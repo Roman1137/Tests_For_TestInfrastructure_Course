@@ -47,23 +47,12 @@ pipeline {
 				
                 sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
 				
-				script{
-                    zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
-					stash 'allure-results.zip'
-                }
-				
-				script{
-                    zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
-					stash 'trx-results.zip'
-                }
+				packTestResults();
             }
         }
 		stage('Reports') {
 			steps {
-				script{
-					unstash 'allure-results.zip'
-                    unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
-                }
+				unPackTestResults();
 				
 				script {
 						allure([
@@ -74,11 +63,6 @@ pipeline {
 								results: [[path: 'target/allure-results']]
 						])
 				}
-				
-				script{
-					unstash 'trx-results.zip'
-                    unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
-                }
 				
 				step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
 			}
@@ -110,4 +94,22 @@ def updateTestConfigFile() {
 	def configsFolderPath = "Tests_For_TestInfrastructure_Course/config";
 	sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' ${configsFolderPath}/docker.runsettings"
 	sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' ${configsFolderPath}/docker.runsettings"
+}
+
+def packTestResults() {
+	zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
+	stash 'allure-results.zip'
+	
+	zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
+	stash 'trx-results.zip'
+}
+
+def unPackTestResults() {
+	script{
+		unstash 'allure-results.zip'
+        unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+		
+		unstash 'trx-results.zip'
+        unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+	}
 }
