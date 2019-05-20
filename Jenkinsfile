@@ -10,6 +10,8 @@ pipeline {
 		
 		FRONTEND_NAME = "todo-app"
 		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"
+
+		DOTNET_WORKSPACE = ""
 	}
     stages {
 		stage('Prepare environment') {
@@ -51,7 +53,7 @@ pipeline {
 					stash 'allure-results.zip'
                 }
 				
-				def DOTNET_WORKSPACE = '${env.WORKSPACE}'
+				DOTNET_WORKSPACE = '${env.WORKSPACE}'
             }
         }
 		stage('Reports') {
