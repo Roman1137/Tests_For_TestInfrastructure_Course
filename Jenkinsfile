@@ -15,6 +15,7 @@ pipeline {
 		stage('Prepare environment') {
 			steps {
 				sh 'docker network create ${NETWORK_NAME}'
+				sh "rm -r ${env.WORKSPACE}*/*"
 			}
 		}
 		stage('Start Frontend'){
