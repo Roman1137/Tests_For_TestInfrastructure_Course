@@ -50,7 +50,8 @@ pipeline {
 				
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'Tests_For_TestInfrastructure_Course/bin/Debug/netcoreapp2.1/allure-results'
-					archiveArtifacts artifacts: 'allure-results.zip'
+					//archiveArtifacts artifacts: 'allure-results.zip'
+					stash 'allure-results.zip'
                 }
 
 				sh "rm -r *"
@@ -58,12 +59,9 @@ pipeline {
         }
 		stage('Reports') {
 			steps {
-				sh"cd ../../../"
-				sh "ls -a"
-				sh "pwd"
-				sh "find . -name allure-results.zip"
 				script{
-                    unzip zipFile: 'target/allure-results.zip', dir: 'target/allure-results'
+					unstash 'allure-results.zip'
+                    unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
                 }
 				
 				script {
