@@ -15,7 +15,6 @@ pipeline {
 		stage('Prepare environment') {
 			steps {
 				sh 'docker network create ${NETWORK_NAME}'
-				sh "rm -r ${env.WORKSPACE}*/*"
 			}
 		}
 		stage('Start Frontend'){
@@ -52,6 +51,8 @@ pipeline {
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
 					stash 'allure-results.zip'
                 }
+				
+				env.DOTNET_WORKSPACE = ${env.WORKSPACE}
             }
         }
 		stage('Reports') {
@@ -75,7 +76,7 @@ pipeline {
     }
 	post {
 		always {
-			sh "rm -r /var/jenkins_home/workspace/Allure_adding@2/*"
+			sh "rm -r ${env.DOTNET_WORKSPACE}/*"
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
