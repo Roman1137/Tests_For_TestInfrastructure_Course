@@ -64,7 +64,8 @@ pipeline {
 						])
 				}
 				
-				step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
+				//step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
+				mstest testResultsFile:"target/trx-results/*.trx", keepLongStdio: true
 			}
 		}
     }
@@ -114,7 +115,7 @@ def unPackTestResults() {
 		unstash 'allure-results.zip'
         unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 		
-		//unstash 'trx-results.zip'
-        //unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+		unstash 'trx-results.zip'
+        unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
 	}
 }
