@@ -95,9 +95,9 @@ def cleanDotnetWorkspace() {
 		if(DOTNET_WORKSPACE == null) {
 			saveDotnetWorkspaceName()
 	    }
+
+		sh "rm -r ${DOTNET_WORKSPACE}/*"
 	}
-	
-	sh "rm -r ${DOTNET_WORKSPACE}/*"
 }
 
 def updateTestConfigFile() {
