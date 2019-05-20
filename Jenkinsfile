@@ -86,18 +86,15 @@ def DOTNET_WORKSPACE;
 
 def saveDotnetWorkspaceName() {
 	script {
+		if(DOTNET_WORKSPACE == null) {
+			DOTNET_WORKSPACE = "${env.WORKSPACE}"
+	    }
 		DOTNET_WORKSPACE = "${env.WORKSPACE}"
 	}
 }
 
 def cleanDotnetWorkspace() {
-	script{
-		if(DOTNET_WORKSPACE == null) {
-			DOTNET_WORKSPACE = "${env.WORKSPACE}"
-	    }
-
-		sh "rm -r ${DOTNET_WORKSPACE}/*"
-	}
+	sh "rm -r ${DOTNET_WORKSPACE}/*"	
 }
 
 def updateTestConfigFile() {
