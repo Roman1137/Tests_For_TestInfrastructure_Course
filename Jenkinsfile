@@ -9,9 +9,7 @@ pipeline {
 		BROWSER_URL = "http://${BROWSER_NAME}:4444/wd/hub"
 		
 		FRONTEND_NAME = "todo-app"
-		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"
-		
-		
+		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"	
 	}
     stages {
 		stage('Prepare environment') {
@@ -42,13 +40,12 @@ pipeline {
 				}
 			}
             steps {
-				// setting value to config file
-				sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
-				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
+				cleanDotnetWorkspace()
+				updateTestConfigFile()
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
-				saveDotnetWorkspaceName()
+				
 
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
@@ -94,5 +91,12 @@ def saveDotnetWorkspaceName() {
 }
 
 def cleanDotnetWorkspace() {
+	def DOTNET_WORKSPACE = DOTNET_WORKSPACE == null ? "${env.WORKSPACE}" DOTNET_WORKSPACE;
 	sh "rm -r ${DOTNET_WORKSPACE}/*"
+}
+
+def updateTestConfigFile() {
+	def configsFolderPath = "Tests_For_TestInfrastructure_Course/config";
+	sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' ${configsFolderPath}/docker.runsettings"
+	sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' ${configsFolderPath}/docker.runsettings"
 }
