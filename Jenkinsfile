@@ -74,8 +74,8 @@ pipeline {
     }
 	post {
 		always {
-			echo 'workspace is $WORKSPACE'
-			echo 'JOB_NAME is $JOB_NAME'
+			echo 'workspace is ${WORKSPACE}'
+			echo 'JOB_NAME is ${JOB_NAME}'
 			
 			sh "rm -r /var/jenkins_home/workspace/Allure_adding@2/*"
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
