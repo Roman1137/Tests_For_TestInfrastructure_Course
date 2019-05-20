@@ -48,7 +48,7 @@ pipeline {
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
-				saveDotnetWorkspace()
+				saveDotnetWorkspaceName()
 
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
@@ -80,15 +80,19 @@ pipeline {
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
-			sh "rm -r ${DOTNET_WORKSPACE}/*"
+			cleanDotnetWorkspace()
 		}    
   }
 }
 
 def DOTNET_WORKSPACE;
 
-def saveDotnetWorkspace() {
+def saveDotnetWorkspaceName() {
 	script {
 		DOTNET_WORKSPACE = "${env.WORKSPACE}"
 	}
+}
+
+def cleanDotnetWorkspace() {
+	sh "rm -r ${DOTNET_WORKSPACE}/*"
 }
