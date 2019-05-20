@@ -51,6 +51,11 @@ pipeline {
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
 					stash 'allure-results.zip'
                 }
+				
+				script{
+                    zip zipFile: 'trx-results.zip', archive: true, dir: 'trx-results'
+					stash 'trx-results.zip'
+                }
             }
         }
 		stage('Reports') {
@@ -69,6 +74,13 @@ pipeline {
 								results: [[path: 'target/allure-results']]
 						])
 				}
+				
+				script{
+					unstash 'trx-results.zip'
+                    unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+                }
+				
+				step([$class: 'MSTestPublisher', testResultsFile:"**/*.trx", failOnError: true, keepLongStdio: true])
 			}
 		}
     }
