@@ -54,7 +54,7 @@ pipeline {
                 }
 				
 				script{
-					env.DOTNET_WORKSPACE = env.WORKSPACE
+					DOTNET_WORKSPACE = env.WORKSPACE
 				}
             }
         }
