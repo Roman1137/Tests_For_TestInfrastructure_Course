@@ -87,12 +87,11 @@ def DOTNET_WORKSPACE;
 def getDotnetWorkspaceName() {
 	return DOTNET_WORKSPACE == null 
 		? "${env.WORKSPACE}" 
-		: DOTNET_WORKSPACE;
+		: "${DOTNET_WORKSPACE}";
 }
 
 def cleanDotnetWorkspace() {
-	def DOTNET_WORKSPACE = getDotnetWorkspaceName();
-	sh "rm -r ${DOTNET_WORKSPACE}/*"
+	sh "rm -r ${getDotnetWorkspaceName()}/*"
 }
 
 def updateTestConfigFile() {
