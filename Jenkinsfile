@@ -50,15 +50,15 @@ pipeline {
 				
                 sh 'dotnet build && dotnet test --settings config/docker.runsettings'
 				
-				script{
-                    zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
-					stash 'allure-results.zip'
-                }
-				
 				echo "${env.WORKSPACE}"
 				script{
 					DOTNET_WORKSPACE = "${env.WORKSPACE}"
 				}
+
+				script{
+                    zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
+					stash 'allure-results.zip'
+                }
             }
         }
 		stage('Reports') {
