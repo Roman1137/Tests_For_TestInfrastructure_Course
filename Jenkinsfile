@@ -1,3 +1,5 @@
+def DOTNET_WORKSPACE;
+
 pipeline {
 	agent {
 		label 'master'
@@ -11,7 +13,7 @@ pipeline {
 		FRONTEND_NAME = "todo-app"
 		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"
 		
-		DOTNET_WORKSPACE = ''
+		
 	}
     stages {
 		stage('Prepare environment') {
