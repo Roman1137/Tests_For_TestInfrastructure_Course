@@ -52,7 +52,7 @@ pipeline {
 					stash 'allure-results.zip'
                 }
 				
-				DOTNET_WORKSPACE = '${env.WORKSPACE}'
+				DOTNET_WORKSPACE = ${env.WORKSPACE}
             }
         }
 		stage('Reports') {
