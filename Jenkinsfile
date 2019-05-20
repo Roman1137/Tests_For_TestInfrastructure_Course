@@ -40,7 +40,6 @@ pipeline {
 				}
 			}
             steps {
-				sh "ls"
 				// setting value to config file
 				sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
 				sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' Tests_For_TestInfrastructure_Course/config/docker.runsettings"
@@ -52,7 +51,7 @@ pipeline {
 					stash 'allure-results.zip'
                 }
 				
-				def DOTNET_WORKSPACE = ${env.WORKSPACE}
+				def DOTNET_WORKSPACE = '${env.WORKSPACE}'
             }
         }
 		stage('Reports') {
