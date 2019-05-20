@@ -55,8 +55,9 @@ pipeline {
 					stash 'allure-results.zip'
                 }
 				
+				echo "${env.WORKSPACE}"
 				script{
-					DOTNET_WORKSPACE = '${env.WORKSPACE}'
+					DOTNET_WORKSPACE = "${env.WORKSPACE}""
 				}
             }
         }
