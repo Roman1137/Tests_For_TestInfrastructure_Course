@@ -114,7 +114,7 @@ def unPackTestResults() {
 		unstash 'allure-results.zip'
         unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 		
-		unstash 'trx-results.zip'
-        unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+		//unstash 'trx-results.zip'
+        //unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
 	}
 }
