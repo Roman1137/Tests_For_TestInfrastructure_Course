@@ -1,6 +1,6 @@
 {
   "allure": {
-    // specifying ../../../../ before allure-results makes allure-results be generated in the project root folder
+    // specifying '../../../../' before 'allure-results' makes 'allure-results' folder be generated in the project root folder
     "directory": "../../../../allure-results", // optional, default value is "allure-results"
     "title": "custom run title", // optional
     "links": //optional
