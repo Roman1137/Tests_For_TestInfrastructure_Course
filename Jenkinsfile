@@ -93,7 +93,7 @@ def saveDotnetWorkspaceName() {
 def cleanDotnetWorkspace() {
 	script{
 		if(DOTNET_WORKSPACE == null) {
-			saveDotnetWorkspaceName()
+			DOTNET_WORKSPACE = "${env.WORKSPACE}"
 	    }
 
 		sh "rm -r ${DOTNET_WORKSPACE}/*"
