@@ -45,7 +45,7 @@ pipeline {
 				saveDotnetWorkspaceName();
 				updateTestConfigFile();
 				
-                sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../"
+                sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ."
 				
 				script{
                     zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
