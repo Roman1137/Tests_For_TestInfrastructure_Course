@@ -6,6 +6,7 @@
     <Parameter name="SeleniumGridUrl" value="http://localhost:4444/wd/hub"/>>
 
     <!--WebDriver-->
+    <Parameter name="IsLocalBrowser" value="false"/>
     <Parameter name="Browser" value="Chrome"/>
     <Parameter name="Timeout" value="60"/>
     <Parameter name="IsHeadlessMode" value="false"/>
