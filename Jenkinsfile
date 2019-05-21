@@ -64,8 +64,6 @@ pipeline {
 		stage('Reports') {
 			steps {
 				unPackTestResults();
-				sh "ls"
-				sh "ls -R"
 				
 				script {
 						allure([
