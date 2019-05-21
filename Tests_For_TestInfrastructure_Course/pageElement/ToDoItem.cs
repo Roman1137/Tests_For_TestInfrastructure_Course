@@ -9,7 +9,7 @@ namespace Tests_For_TestInfrastructure_Course.pageElement
     {
         private readonly IWebElement _webElement;
         
-        public ToDoItem(Application app, IWebElement webElement) : base(app)
+        public ToDoItem(IWebElement webElement)
         {
             this._webElement = webElement;
         }
@@ -35,7 +35,7 @@ namespace Tests_For_TestInfrastructure_Course.pageElement
         public void Delete()
         {
             var deleteButton =  this._webElement.FindElement(By.CssSelector("button.destroy"));
-            ((IJavaScriptExecutor) Driver).ExecuteScript("arguments[0].click();", deleteButton);
+            ((IJavaScriptExecutor) Application.Driver).ExecuteScript("arguments[0].click();", deleteButton);
         }
 
         public void Edit(string newValue)
@@ -47,7 +47,7 @@ namespace Tests_For_TestInfrastructure_Course.pageElement
         private void DoubleClick()
         {
             var elementToDoubleClick = this._webElement.FindElement(By.CssSelector("label"));
-            new Actions(this.Driver).DoubleClick(elementToDoubleClick);
+            new Actions(Application.Driver).DoubleClick(elementToDoubleClick);
         }
     }
 }

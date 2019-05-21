@@ -7,7 +7,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
 {
     [TestFixture]
     [AllureNUnit]
-    [TestFixture, Parallelizable(ParallelScope.Fixtures)]
+    [TestFixture, Parallelizable(ParallelScope.All)]
     public class RemoveElementsTests: BaseTest
     {
         [Test]
@@ -48,6 +48,78 @@ namespace Tests_For_TestInfrastructure_Course.tests
 
         [Test]
         public void Delete_Should_Remove_Item4()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item5()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item6()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item7()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item8()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item9()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.ToDoItems.First().Delete();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+        }
+
+        [Test]
+        public void Delete_Should_Remove_Item10()
         {
             App.ToDoPage.Open();
 

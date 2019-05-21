@@ -16,13 +16,12 @@ namespace Tests_For_TestInfrastructure_Course.tests
             Environment.SetEnvironmentVariable(
                 AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
                 Path.Combine(Environment.CurrentDirectory, AllureConstants.CONFIG_FILENAME));
-            this.App = new Application();
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        [SetUp]
+        public void SetUpEach()
         {
-            this.App.Quit();
+            this.App = new Application();
         }
 
         [TearDown]
@@ -32,6 +31,8 @@ namespace Tests_For_TestInfrastructure_Course.tests
             {
                 toDoItem.Delete();
             }
+
+            this.App.Quit();
         }
     }
 }

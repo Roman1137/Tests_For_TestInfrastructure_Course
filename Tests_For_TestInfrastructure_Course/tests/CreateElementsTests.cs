@@ -6,7 +6,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
 {
     [TestFixture]
     [AllureNUnit]
-    [TestFixture, Parallelizable(ParallelScope.Fixtures)]
+    [TestFixture, Parallelizable(ParallelScope.All)]
     public class CreateElementsTests: BaseTest
     {
         [Test]
@@ -40,6 +40,51 @@ namespace Tests_For_TestInfrastructure_Course.tests
         }
 
         [Test]
+        public void Create_Should_Create_One_Item3()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.FilterByCompleted();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+
+            App.ToDoPage.FilterByActive();
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+        }
+
+        [Test]
+        public void Create_Should_Create_One_Item4()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.FilterByCompleted();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+
+            App.ToDoPage.FilterByActive();
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+        }
+
+        [Test]
+        public void Create_Should_Create_One_Item5()
+        {
+            App.ToDoPage.Open();
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+
+            App.ToDoPage.FilterByCompleted();
+            App.ToDoPage.ToDoItems.Should().BeEmpty();
+
+            App.ToDoPage.FilterByActive();
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
+        }
+
+        [Test]
         public void Create_Should_Increase_Items_Left_Number()
         {
             App.ToDoPage.Open();
@@ -54,6 +99,45 @@ namespace Tests_For_TestInfrastructure_Course.tests
 
         [Test]
         public void Create_Should_Increase_Items_Left_Number2()
+        {
+            App.ToDoPage.Open();
+            App.ToDoPage.ItemsLeftCount().Should().Be("");
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ItemsLeftCount().Should().Be("1");
+
+            App.ToDoPage.CreateItem("test2");
+            App.ToDoPage.ItemsLeftCount().Should().Be("2");
+        }
+
+        [Test]
+        public void Create_Should_Increase_Items_Left_Number3()
+        {
+            App.ToDoPage.Open();
+            App.ToDoPage.ItemsLeftCount().Should().Be("");
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ItemsLeftCount().Should().Be("1");
+
+            App.ToDoPage.CreateItem("test2");
+            App.ToDoPage.ItemsLeftCount().Should().Be("2");
+        }
+
+        [Test]
+        public void Create_Should_Increase_Items_Left_Number4()
+        {
+            App.ToDoPage.Open();
+            App.ToDoPage.ItemsLeftCount().Should().Be("");
+
+            App.ToDoPage.CreateItem("test1");
+            App.ToDoPage.ItemsLeftCount().Should().Be("1");
+
+            App.ToDoPage.CreateItem("test2");
+            App.ToDoPage.ItemsLeftCount().Should().Be("2");
+        }
+
+        [Test]
+        public void Create_Should_Increase_Items_Left_Number5()
         {
             App.ToDoPage.Open();
             App.ToDoPage.ItemsLeftCount().Should().Be("");

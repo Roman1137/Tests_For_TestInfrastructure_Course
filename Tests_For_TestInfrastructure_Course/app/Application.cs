@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Concurrent;
+using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
@@ -15,9 +16,29 @@ namespace Tests_For_TestInfrastructure_Course.app
 {
     public class Application
     {
-        private static ThreadLocal<IWebDriver> _Driver { get; set; }
+        //private static ThreadLocal<IWebDriver> _Driver { get; set; }
+        private static ConcurrentDictionary<IWebDriver, string> DriverCollection = new ConcurrentDictionary<IWebDriver, string>();
+        private static object locker = new object();
 
-        public static IWebDriver Driver => _Driver.Value;
+        public static IWebDriver Driver
+        {
+            get
+            {
+                return DriverCollection.First(pair => pair.Value == TestContext.CurrentContext.Test.ID).Key;
+            }
+
+            set
+            {
+                lock (locker)
+                {
+                    if (DriverCollection.Any(pair => pair.Value == string.Empty))
+                    {
+                        throw new Exception("aaa");
+                    }
+                    DriverCollection.TryAdd(value, TestContext.CurrentContext.Test.ID);
+                }
+            }
+        }
 
         public WebDriverWait Wait { get; set; }
 
@@ -25,7 +46,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public Application()
         {
-            InitializeDriver();
+            Driver = GetDriver();
             InitializeLogger();
 
             this.ToDoPage = new ToDoPage(this);
@@ -68,20 +89,23 @@ namespace Tests_For_TestInfrastructure_Course.app
                 .CreateLogger();
         }
 
-        private void InitializeDriver()
+        private IWebDriver GetDriver()
         {
+            IWebDriver driver = null;
             if (TestSettings.IsLocalBrowser)
             {
-                _Driver = new ThreadLocal<IWebDriver>(() => new ChromeDriver());
+                driver = new ChromeDriver();
             }
             else
             {
                 var options = new ChromeOptions();
-                _Driver = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumGridUrl, options));
+                driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
             }
 
-            Driver.Manage().Window.Maximize();
-            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+            driver.Manage().Window.Maximize();
+            this.Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            return driver;
         }
     }
 }
