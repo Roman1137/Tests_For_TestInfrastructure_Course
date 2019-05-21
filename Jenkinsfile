@@ -77,7 +77,7 @@ pipeline {
 						])
 				}
 				
-				step([$class: 'MSTestPublisher', testResultsFile:"target/TestResults*.trx", failOnError: true, keepLongStdio: true])
+				step([$class: 'MSTestPublisher', testResultsFile:"target/TestResults/*.trx", failOnError: true, keepLongStdio: true])
 			}
 		}
     }
