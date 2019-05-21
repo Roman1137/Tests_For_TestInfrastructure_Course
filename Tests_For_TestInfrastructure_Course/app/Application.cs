@@ -18,10 +18,20 @@ namespace Tests_For_TestInfrastructure_Course.app
         public ToDoPage ToDoPage { get; set; }
         private static string AllureConfigDir = Environment.CurrentDirectory;
 
+        //public Application()
+        //{
+        //    var options = new ChromeOptions();
+        //    this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+
+        //    this.Driver.Manage().Window.Maximize();
+        //    this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
+            
+        //    this.ToDoPage = new ToDoPage(this);
+        //}
+
         public Application()
         {
-            var options = new ChromeOptions();
-            this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+            this.Driver = new ChromeDriver();
 
             this.Driver.Manage().Window.Maximize();
             this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
