@@ -45,42 +45,38 @@ pipeline {
 				saveDotnetWorkspaceName();
 				updateTestConfigFile();
 				
-				script{
-					try
-					{
-						sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
-					}
-					catch(err)
-					{
-						echo "Some test failed with error: $err"
-					}
-					finally
-					{
-						packTestResults();
-					}
-				}	
+				sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"	
             }
+			post {
+				always {
+					packTestResults();
+				}
+			}
         }
 		stage('Reports') {
 			steps {
-				unPackTestResults();
 				
-				script {
-						allure([
-								includeProperties: false,
-								jdk: '',
-								properties: [],
-								reportBuildPolicy: 'ALWAYS',
-								results: [[path: 'allure-results']]
-						])
-				}
 				
-				step([$class: 'MSTestPublisher', testResultsFile:"TestResults/*.trx", failOnError: true, keepLongStdio: true])
+				
 			}
 		}
     }
 	post {
 		always {
+			unPackTestResults();
+			
+			script {
+				allure([
+					includeProperties: false,
+					jdk: '',
+					properties: [],
+					reportBuildPolicy: 'ALWAYS',
+					results: [[path: 'allure-results']]			
+				])
+			}
+				
+			step([$class: 'MSTestPublisher', testResultsFile:"TestResults/*.trx", failOnError: true, keepLongStdio: true])
+			
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
@@ -113,21 +109,13 @@ def updateTestConfigFile() {
 }
 
 def packTestResults() {
-	//zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
-	//stash 'allure-results.zip'
 	stash includes: 'allure-results/*', name: 'allure-results'
 	
-	//zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
-	//stash 'trx-results.zip'
 	stash includes: 'TestResults/*', name: 'TestResults'
 }
 
 def unPackTestResults() {
-	//unstash 'allure-results.zip'
-	//unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 	unstash 'allure-results'
-			
-	//unstash 'trx-results.zip'
-	//unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+
 	unstash 'TestResults'
 }
