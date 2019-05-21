@@ -121,11 +121,9 @@ def packTestResults() {
 }
 
 def unPackTestResults() {
-	script{
-		unstash 'allure-results.zip'
-        unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+	unstash 'allure-results.zip'
+    unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 		
-		unstash 'trx-results.zip'
-        unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
-	}
+	unstash 'trx-results.zip'
+    unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
 }
