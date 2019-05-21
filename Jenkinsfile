@@ -64,6 +64,8 @@ pipeline {
 		stage('Reports') {
 			steps {
 				unPackTestResults();
+				sh "ls"
+				sh "pwd"
 				
 				script {
 						allure([
@@ -124,10 +126,10 @@ def packTestResults() {
 
 def unPackTestResults() {
 	//unstash 'allure-results.zip'
-    //unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+	//unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 	unstash 'allure-results'
-		
+			
 	//unstash 'trx-results.zip'
-    //unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+	//unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
 	unstash 'trx-results'
 }
