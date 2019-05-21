@@ -65,17 +65,9 @@ pipeline {
 			steps {
 				unPackTestResults();
 				
-				script {
-						allure([
-								includeProperties: false,
-								jdk: '',
-								properties: [],
-								reportBuildPolicy: 'ALWAYS',
-								results: [[path: 'target/allure-results']]
-						])
-				}
 				
-				step([$class: 'MSTestPublisher', testResultsFile:"target/trx-results/*.trx", failOnError: false, keepLongStdio: true])
+				
+				step([$class: 'MSTestPublisher', testResultsFile:"target/trx-results/*.trx", failOnError: true, keepLongStdio: true])
 			}
 		}
     }
