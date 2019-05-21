@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
@@ -14,7 +15,10 @@ namespace Tests_For_TestInfrastructure_Course.app
 {
     public class Application
     {
-        public IWebDriver Driver { get; set; }
+        private static ThreadLocal<IWebDriver> _Driver { get; set; }
+
+        public static IWebDriver Driver => _Driver.Value;
+
         public WebDriverWait Wait { get; set; }
 
         public ToDoPage ToDoPage { get; set; }
@@ -38,7 +42,6 @@ namespace Tests_For_TestInfrastructure_Course.app
             Driver.Close();
             Driver.Quit();
             Driver.Dispose();
-            Driver = null;
         }
 
         private void TakeScreenShot()
@@ -69,16 +72,16 @@ namespace Tests_For_TestInfrastructure_Course.app
         {
             if (TestSettings.IsLocalBrowser)
             {
-                this.Driver = new ChromeDriver();
+                _Driver = new ThreadLocal<IWebDriver>(() => new ChromeDriver());
             }
             else
             {
                 var options = new ChromeOptions();
-                this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+                _Driver = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumGridUrl, options));
             }
 
-            this.Driver.Manage().Window.Maximize();
-            this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
+            Driver.Manage().Window.Maximize();
+            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
         }
     }
 }

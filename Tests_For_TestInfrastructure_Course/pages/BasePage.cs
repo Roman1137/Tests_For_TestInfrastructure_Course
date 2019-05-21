@@ -11,7 +11,7 @@ namespace Tests_For_TestInfrastructure_Course.pages
         public BasePage(Application app)
         {
             this.App = app;
-            this.Driver = app.Driver;
+            this.Driver = Application.Driver;
         }
     }
 }
