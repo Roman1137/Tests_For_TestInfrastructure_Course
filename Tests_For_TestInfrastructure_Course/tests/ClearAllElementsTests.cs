@@ -3,6 +3,7 @@ using FluentAssertions;
 using NUnit.Allure.Attributes;
 using NUnit.Allure.Core;
 using NUnit.Framework;
+using Serilog;
 
 namespace Tests_For_TestInfrastructure_Course.tests
 {

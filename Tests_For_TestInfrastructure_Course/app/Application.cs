@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using Serilog;
+using Serilog.Events;
 using Tests_For_TestInfrastructure_Course.config;
 using Tests_For_TestInfrastructure_Course.pages;
 
@@ -16,27 +18,13 @@ namespace Tests_For_TestInfrastructure_Course.app
         public WebDriverWait Wait { get; set; }
 
         public ToDoPage ToDoPage { get; set; }
-        private static string AllureConfigDir = Environment.CurrentDirectory;
-
-        //public Application()
-        //{
-        //    var options = new ChromeOptions();
-        //    this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
-
-        //    this.Driver.Manage().Window.Maximize();
-        //    this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
-            
-        //    this.ToDoPage = new ToDoPage(this);
-        //}
 
         public Application()
         {
-            this.Driver = new ChromeDriver();
-
-            this.Driver.Manage().Window.Maximize();
-            this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
+            InitializeDriver();
             
             this.ToDoPage = new ToDoPage(this);
+            InitializeLogger();
         }
 
         public void Quit()
@@ -67,6 +55,30 @@ namespace Tests_For_TestInfrastructure_Course.app
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private void InitializeLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Is(LogEventLevel.Debug)
+                .WriteTo.Console()
+                .CreateLogger();
+        }
+
+        private void InitializeDriver()
+        {
+            if (TestSettings.IsLocalBrowser)
+            {
+                this.Driver = new ChromeDriver();
+            }
+            else
+            {
+                var options = new ChromeOptions();
+                this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+            }
+
+            this.Driver.Manage().Window.Maximize();
+            this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
         }
     }
 }
