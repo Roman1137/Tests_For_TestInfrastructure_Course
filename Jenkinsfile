@@ -52,7 +52,7 @@ pipeline {
 					}
 					catch(err)
 					{
-						echo "Caught error: $err"
+						echo "Some test failed with error: $err"
 					}
 					finally
 					{
@@ -75,7 +75,7 @@ pipeline {
 						])
 				}
 				
-				step([$class: 'MSTestPublisher', testResultsFile:"target/trx-results/*.trx", failOnError: true, keepLongStdio: true])
+				step([$class: 'MSTestPublisher', testResultsFile:"target/trx-results/*.trx", failOnError: false, keepLongStdio: true])
 			}
 		}
     }
