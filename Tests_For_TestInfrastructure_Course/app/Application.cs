@@ -80,5 +80,13 @@ namespace Tests_For_TestInfrastructure_Course.app
             this.Driver.Manage().Window.Maximize();
             this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
         }
+
+        private void InitializeLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Is(LogEventLevel.Debug)
+                .WriteTo.Console()
+                .CreateLogger();
+        }
     }
 }

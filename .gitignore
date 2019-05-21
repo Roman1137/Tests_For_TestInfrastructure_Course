@@ -288,5 +288,5 @@ typings/
 # FuseBox cache
 .fusebox/
 
-# Allure results
+# Allure-results
 allure-results
