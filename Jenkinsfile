@@ -65,7 +65,7 @@ pipeline {
 			steps {
 				unPackTestResults();
 				sh "ls"
-				sh "pwd"
+				sh "ls -R"
 				
 				script {
 						allure([
@@ -121,7 +121,7 @@ def packTestResults() {
 	
 	//zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
 	//stash 'trx-results.zip'
-	stash includes: 'TestResults/*', name: 'trx-results'
+	stash includes: 'TestResults/*', name: 'TestResults'
 }
 
 def unPackTestResults() {
@@ -131,5 +131,5 @@ def unPackTestResults() {
 			
 	//unstash 'trx-results.zip'
 	//unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
-	unstash 'trx-results'
+	unstash 'TestResults'
 }
