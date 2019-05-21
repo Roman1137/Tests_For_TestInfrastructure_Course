@@ -53,13 +53,6 @@ pipeline {
 				}
 			}
         }
-		stage('Reports') {
-			steps {
-				
-				
-				
-			}
-		}
     }
 	post {
 		always {
@@ -80,6 +73,7 @@ pipeline {
 			sh 'docker rm -f ${FRONTEND_NAME} || true'
 			sh 'docker rm -f ${BROWSER_NAME} || true'
 			sh 'docker network rm ${NETWORK_NAME}'
+			
 			cleanDotnetWorkspace();
 			cleanJenkinsWorkspace();
 		}    
