@@ -45,13 +45,20 @@ pipeline {
 				saveDotnetWorkspaceName();
 				updateTestConfigFile();
 				
-				try{
-					sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
-				}catch(err){
-					echo "Caught error: $err"
-				}finally{
-					packTestResults();
-				}
+				script{
+					try
+					{
+						sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
+					}
+					catch(err)
+					{
+						echo "Caught error: $err"
+					}
+					finally
+					{
+						packTestResults();
+					}
+				}	
             }
         }
 		stage('Reports') {
