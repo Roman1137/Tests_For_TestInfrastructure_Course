@@ -113,17 +113,21 @@ def updateTestConfigFile() {
 }
 
 def packTestResults() {
-	zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
-	stash 'allure-results.zip'
+	//zip zipFile: 'allure-results.zip', archive: true, dir: 'allure-results'
+	//stash 'allure-results.zip'
+	stash includes: 'allure-results/*', name: 'allure-results'
 	
-	zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
-	stash 'trx-results.zip'
+	//zip zipFile: 'trx-results.zip', archive: true, dir: 'TestResults'
+	//stash 'trx-results.zip'
+	stash includes: 'TestResults/*', name: 'trx-results'
 }
 
 def unPackTestResults() {
-	unstash 'allure-results.zip'
-    unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+	//unstash 'allure-results.zip'
+    //unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+	unstash 'allure-results'
 		
-	unstash 'trx-results.zip'
-    unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+	//unstash 'trx-results.zip'
+    //unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
+	unstash 'trx-results'
 }
