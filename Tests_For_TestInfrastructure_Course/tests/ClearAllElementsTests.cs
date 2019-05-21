@@ -25,7 +25,7 @@ namespace Tests_For_TestInfrastructure_Course.tests
 
             App.ToDoPage.ClearCompleted();
 
-            App.ToDoPage.ToDoItems.Should().BeEmpty();
+            App.ToDoPage.ToDoItems.Should().NotBeEmpty();
         }
 
         [Test]
