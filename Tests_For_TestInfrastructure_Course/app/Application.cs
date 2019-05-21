@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
+using Serilog;
+using Serilog.Events;
 using Tests_For_TestInfrastructure_Course.config;
 using Tests_For_TestInfrastructure_Course.pages;
 
@@ -20,6 +22,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public Application()
         {
+            InitializeLogger();
             var options = new ChromeOptions();
             this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
 
@@ -57,6 +60,14 @@ namespace Tests_For_TestInfrastructure_Course.app
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private void InitializeLogger()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Is(LogEventLevel.Debug)
+                .WriteTo.Console()
+                .CreateLogger();
         }
     }
 }
