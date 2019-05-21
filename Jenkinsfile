@@ -45,9 +45,20 @@ pipeline {
 				saveDotnetWorkspaceName();
 				updateTestConfigFile();
 				
-                sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
-				
-				packTestResults();
+				script{
+					try
+					{
+						sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"
+					}
+					catch(err)
+					{
+						echo "Some test failed with error: $err"
+					}
+					finally
+					{
+						packTestResults();
+					}
+				}	
             }
         }
 		stage('Reports') {
@@ -110,11 +121,9 @@ def packTestResults() {
 }
 
 def unPackTestResults() {
-	script{
-		unstash 'allure-results.zip'
-        unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
+	unstash 'allure-results.zip'
+    unzip zipFile: 'allure-results.zip', dir: 'target/allure-results'
 		
-		unstash 'trx-results.zip'
-        unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
-	}
+	unstash 'trx-results.zip'
+    unzip zipFile: 'trx-results.zip', dir: 'target/trx-results'
 }
