@@ -56,23 +56,10 @@ pipeline {
     }
 	post {
 		always {
-			unPackTestResults();
+			publishAllureResults();
+			publishTrxResults();
 			
-			script {
-				allure([
-					includeProperties: false,
-					jdk: '',
-					properties: [],
-					reportBuildPolicy: 'ALWAYS',
-					results: [[path: 'allure-results']]			
-				])
-			}
-				
-			step([$class: 'MSTestPublisher', testResultsFile:"TestResults/*.trx", failOnError: true, keepLongStdio: true])
-			
-			sh 'docker rm -f ${FRONTEND_NAME} || true'
-			sh 'docker rm -f ${BROWSER_NAME} || true'
-			sh 'docker network rm ${NETWORK_NAME}'
+			cleanUpDockerItems();
 			
 			cleanDotnetWorkspace();
 			cleanJenkinsWorkspace();
@@ -108,8 +95,28 @@ def packTestResults() {
 	stash includes: 'TestResults/*', name: 'TestResults'
 }
 
-def unPackTestResults() {
-	unstash 'allure-results'
+def publishAllureResults() {
+	unstash 'allure-results';
 
+	script {
+		allure([
+			includeProperties: false,
+			jdk: '',
+			properties: [],
+			reportBuildPolicy: 'ALWAYS',
+			results: [[path: 'allure-results']]			
+		])
+	}
+}
+
+def publishTrxResults() {
 	unstash 'TestResults'
+
+	step([$class: 'MSTestPublisher', testResultsFile:"TestResults/*.trx", failOnError: true, keepLongStdio: true])
+}
+
+def cleanUpDockerItems() {
+	sh 'docker rm -f ${FRONTEND_NAME} || true'
+	sh 'docker rm -f ${BROWSER_NAME} || true'
+	sh 'docker network rm ${NETWORK_NAME}'
 }
