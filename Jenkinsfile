@@ -43,7 +43,6 @@ pipeline {
 			}
             steps {
 				saveDotnetWorkspaceName();
-				updateTestConfigFile();
 				
 				sh "dotnet build && dotnet test --settings config/jenkins.runsettings --logger 'trx' --results-directory ../TestResults"	
             }
