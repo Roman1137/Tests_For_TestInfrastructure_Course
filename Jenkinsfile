@@ -45,7 +45,7 @@ pipeline {
 				saveDotnetWorkspaceName();
 				updateTestConfigFile();
 				
-				sh "dotnet build && dotnet test --settings config/docker.runsettings --logger 'trx' --results-directory ../TestResults"	
+				sh "dotnet build && dotnet test --settings config/jenkins.runsettings --logger 'trx' --results-directory ../TestResults"	
             }
 			post {
 				always {
