@@ -56,10 +56,10 @@ pipeline {
     }
 	post {
 		always {
+			cleanUpDockerItems();
+		
 			publishAllureResults();
 			publishTrxResults();
-			
-			cleanUpDockerItems();
 			
 			cleanDotnetWorkspace();
 			cleanJenkinsWorkspace();
