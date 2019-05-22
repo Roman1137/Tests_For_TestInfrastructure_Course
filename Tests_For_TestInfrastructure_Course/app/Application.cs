@@ -74,7 +74,7 @@ namespace Tests_For_TestInfrastructure_Course.app
             else
             {
                 var options = new ChromeOptions();
-                this.Driver = new RemoteWebDriver(TestSettings.SeleniumGridUrl, options);
+                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
             }
 
             this.Driver.Manage().Window.Maximize();
