@@ -16,26 +16,21 @@ namespace Tests_For_TestInfrastructure_Course.app
 {
     public class Application
     {
-        //private static ThreadLocal<IWebDriver> _Driver { get; set; }
-        private static ConcurrentDictionary<IWebDriver, string> DriverCollection = new ConcurrentDictionary<IWebDriver, string>();
+        private static ConcurrentDictionary<string, IWebDriver> DriverCollection = new ConcurrentDictionary<string, IWebDriver>();
         private static object locker = new object();
 
         public static IWebDriver Driver
         {
             get
             {
-                return DriverCollection.First(pair => pair.Value == TestContext.CurrentContext.Test.ID).Key;
+                return DriverCollection.First(pair => pair.Key == TestContext.CurrentContext.Test.ID).Value;
             }
 
             set
             {
                 lock (locker)
                 {
-                    if (DriverCollection.Any(pair => pair.Value == string.Empty))
-                    {
-                        throw new Exception("aaa");
-                    }
-                    DriverCollection.TryAdd(value, TestContext.CurrentContext.Test.ID);
+                    DriverCollection.TryAdd(TestContext.CurrentContext.Test.ID, value);
                 }
             }
         }
