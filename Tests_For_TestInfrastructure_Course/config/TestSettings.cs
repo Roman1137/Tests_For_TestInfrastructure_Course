@@ -11,7 +11,7 @@ namespace Tests_For_TestInfrastructure_Course.config
             {
                 var url = TestContext.Parameters[nameof(ToDoApplicationUrl)]
                           ??
-                          $"http://{TestContext.Parameters["ToDoAppContainerName"]}:{TestContext.Parameters["ToDoAppPort"]}"; 
+                          Environment.GetEnvironmentVariable(nameof(ToDoApplicationUrl));
                 return new Uri(url);
             }
         }
@@ -22,7 +22,7 @@ namespace Tests_For_TestInfrastructure_Course.config
             {
                 var url = TestContext.Parameters[nameof(SeleniumClusterUrl)]
                           ??
-                          $"http://{TestContext.Parameters["SeleniumClusterContainerName"]}:{TestContext.Parameters["SeleniumClusterPort"]}/wd/hub"; 
+                          Environment.GetEnvironmentVariable(nameof(SeleniumClusterUrl));
                 return new Uri(url);
             }
         }

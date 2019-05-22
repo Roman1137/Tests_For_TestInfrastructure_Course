@@ -2,11 +2,6 @@
 <RunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
-    <Parameter name="ToDoAppContainerName" value="todo-app"/>>
-    <Parameter name="ToDoAppPort" value="8080"/>>
-
-    <Parameter name="SeleniumClusterContainerName" value="my-chrome"/>>
-    <Parameter name="SeleniumClusterPort" value="4444"/>>
 
     <!--WebDriver-->
     <Parameter name="IsLocalBrowser" value="false"/>
