@@ -7,11 +7,11 @@ pipeline {
 		HOME = '/tmp'
 		NETWORK_NAME = "my-network"
 		
-		BROWSER_NAME = "my-chrome"
-		BROWSER_URL = "http://${BROWSER_NAME}:4444/wd/hub"
+		SELENIUM_CLUSTER_NAME = "my-chrome"
+		SELENIUM_CLUSTER_URL = "http://${SELENIUM_CLUSTER_NAME}:4444/wd/hub"
 		
-		FRONTEND_NAME = "todo-app"
-		FRONTEND_URL = "http://${FRONTEND_NAME}:8080"	
+		TODO_APP_NAME = "todo-app"
+		TODO_APP_URL = "http://${TODO_APP_NAME}:8080"	
 	}
     stages {
 		stage('Prepare environment') {
@@ -19,26 +19,26 @@ pipeline {
 				sh "docker network create ${NETWORK_NAME}"
 			}
 		}
-		stage('Start Frontend'){
+		stage('Start Frontend') {
 			steps {
-				dir("frontend"){
-					sh "docker rm -f ${FRONTEND_NAME} || true"
-					sh "docker build --no-cache -t ${FRONTEND_NAME}:edge ."
-					sh "docker run --rm --name ${FRONTEND_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${FRONTEND_NAME}:edge"
+				dir("frontend") {
+					sh "docker rm -f ${TODO_APP_NAME} || true"
+					sh "docker build --no-cache -t ${TODO_APP_NAME}:edge ."
+					sh "docker run --rm --name ${TODO_APP_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${FRTODO_APP_NAMEONTEND_NAME}:edge"
 				}
 			}
 		}
 		stage('Start Browser') {
 			steps {
-				sh "docker rm -f ${BROWSER_NAME} || true"
-                sh "docker run --rm --name ${BROWSER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59"
+				sh "docker rm -f ${SELENIUM_CLUSTER_NAME} || true"
+                sh "docker run --rm --name ${SELENIUM_CLUSTER_NAME} -d --privileged --network ${NETWORK_NAME} selenium/standalone-chrome:3.141.59"
             }
 		}
         stage('Run tests') {
 			agent {
 				docker {
 					image 'microsoft/dotnet:2.2-sdk'
-					args "-p 3000:3000 --network ${NETWORK_NAME} -e ToDoApplicationUrl=${FRONTEND_URL} -e SeleniumClusterUrl=${BROWSER_URL}" 
+					args "-p 3000:3000 --network ${NETWORK_NAME} -e ToDoApplicationUrl=${TODO_APP_URL} -e SeleniumClusterUrl=${SELENIUM_CLUSTER_URL}" 
 				}
 			}
             steps {
@@ -108,7 +108,7 @@ def publishTrxResults() {
 }
 
 def cleanUpDockerItems() {
-	sh 'docker rm -f ${FRONTEND_NAME} || true'
-	sh 'docker rm -f ${BROWSER_NAME} || true'
-	sh 'docker network rm ${NETWORK_NAME}'
+	sh "docker rm -f ${TODO_APP_NAME} || true"
+	sh "docker rm -f ${SELENIUM_CLUSTER_NAME} || true"
+	sh "docker network rm ${NETWORK_NAME}"
 }
