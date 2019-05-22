@@ -81,12 +81,6 @@ def cleanJenkinsWorkspace() {
 	sh "rm -r ${env.WORKSPACE}/*"
 }
 
-def updateTestConfigFile() {
-	def configsFolderPath = "Tests_For_TestInfrastructure_Course/config";
-	sh "sed -i 's|ToDoApplicationUrl_Value|${FRONTEND_URL}|g' ${configsFolderPath}/docker.runsettings"
-	sh "sed -i 's|SeleniumGridUrl_Value|${BROWSER_URL}|g' ${configsFolderPath}/docker.runsettings"
-}
-
 def packTestResults() {
 	stash includes: 'allure-results/*', name: 'allure-results'
 	
