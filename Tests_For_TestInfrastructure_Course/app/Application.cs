@@ -99,7 +99,7 @@ namespace Tests_For_TestInfrastructure_Course.app
             else
             {
                 var options = new ChromeOptions();
-                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
+                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
             }
 
             driver.Manage().Window.Maximize();
