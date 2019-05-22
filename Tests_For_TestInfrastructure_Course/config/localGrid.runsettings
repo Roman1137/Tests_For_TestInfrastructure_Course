@@ -2,8 +2,8 @@
 <RunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
-    <Parameter name="ToDoApplicationUrl" value="ToDoApplicationUrl_Value"/>>
-    <Parameter name="SeleniumGridUrl" value="SeleniumGridUrl_Value"/>>
+    <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
+    <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
 
     <!--WebDriver-->
     <Parameter name="IsLocalBrowser" value="false"/>
