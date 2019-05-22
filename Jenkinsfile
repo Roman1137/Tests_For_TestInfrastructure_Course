@@ -24,7 +24,7 @@ pipeline {
 				dir("frontend") {
 					sh "docker rm -f ${TODO_APP_NAME} || true"
 					sh "docker build --no-cache -t ${TODO_APP_NAME}:edge ."
-					sh "docker run --rm --name ${TODO_APP_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${FRTODO_APP_NAMEONTEND_NAME}:edge"
+					sh "docker run --rm --name ${TODO_APP_NAME} -d --privileged --network ${NETWORK_NAME} -p 8000:8080 ${TODO_APP_NAME}:edge"
 				}
 			}
 		}
