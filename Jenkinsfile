@@ -68,8 +68,8 @@ def SELENIUM_CLUSTER_CONTAINER_NAME;
 def readContainerNamesFromConfig() {
 	script {
 		def configsFolderPath = "Tests_For_TestInfrastructure_Course/config";
-		TODO_APPLICATION_CONTAINER_NAME =  sh "cat ${configsFolderPath}/jenkins.runsettings | grep "ToDoAppContainerName" | grep -oP 'value=\K(\S+)(\")'"
-		SELENIUM_CLUSTER_CONTAINER_NAME =  sh "cat ${configsFolderPath}/jenkins.runsettings | grep "SeleniumClusterContainerName" | grep -oP 'value=\K(\S+)(\")'"
+		TODO_APPLICATION_CONTAINER_NAME =  sh "cat ${configsFolderPath}/jenkins.runsettings | grep "ToDoAppContainerName" | grep -oP 'value=\\K(\S+)(\")'"
+		SELENIUM_CLUSTER_CONTAINER_NAME =  sh "cat ${configsFolderPath}/jenkins.runsettings | grep "SeleniumClusterContainerName" | grep -oP 'value=\\K(\S+)(\")'"
 	}
 }
 
