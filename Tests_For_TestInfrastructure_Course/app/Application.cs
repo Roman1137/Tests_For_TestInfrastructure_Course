@@ -98,6 +98,8 @@ namespace Tests_For_TestInfrastructure_Course.app
                     Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
                     break;
                 }
+                default:
+                    throw new Exception("Driver was not created");
             }
             this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
         }
