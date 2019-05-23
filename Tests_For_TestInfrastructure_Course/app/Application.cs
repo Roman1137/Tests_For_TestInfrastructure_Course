@@ -67,18 +67,39 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         private void InitializeDriver()
         {
-            if (TestSettings.IsLocalBrowser)
+            var options = new ChromeOptions();
+            switch (TestSettings.RunType)
             {
-                this.Driver = new ChromeDriver();
-            }
-            else
-            {
-                var options = new ChromeOptions();
-                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
-            }
+                case "DirectConnection":
+                {
+                    if (Boolean.Parse(TestSettings.IsHeadlessMode))
+                    {
+                        options.AddArgument("--headless");
+                    }
+                    options.AddArgument("--start-maximized");
 
-            this.Driver.Manage().Window.Maximize();
-            this.Wait = new WebDriverWait(this.Driver, TimeSpan.FromSeconds(10));
+                    this.Driver = new ChromeDriver(options);
+                    break;
+                }
+                case "SeleniumGrid":
+                {
+                    options.AddArgument("--start-maximized");
+
+                    this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
+                    break;
+                }
+                case "Selenoid":
+                {
+                    if (TestSettings.EnableVnc)
+                    {
+                        options.AddAdditionalCapability("enableVNC", true, true);
+                    }
+                    options.AddArgument("--start-maximized");
+                    Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
+                    break;
+                }
+            }
+            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
         }
     }
 }

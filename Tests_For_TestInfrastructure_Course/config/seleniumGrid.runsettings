@@ -6,10 +6,8 @@
     <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
 
     <!--WebDriver-->
-    <Parameter name="IsLocalBrowser" value="false"/>
-    <Parameter name="Browser" value="Chrome"/>
+    <Parameter name="RunType" value="SeleniumGrid"/>
     <Parameter name="Timeout" value="60"/>
-    <Parameter name="IsHeadlessMode" value="false"/>
     <!--End WebDriver-->
   </TestRunParameters>
 </RunSettings>

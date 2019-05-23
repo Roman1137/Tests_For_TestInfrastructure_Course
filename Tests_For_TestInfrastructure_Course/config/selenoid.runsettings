@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Parameters used by tests at runtime -->
+  <TestRunParameters>
+    <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
+    <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
+
+    <!--WebDriver-->
+    <Parameter name="RunType" value="Selenoid"/>
+    <Parameter name="Timeout" value="60"/>
+    <Parameter name="EnableVnc" value="true"/>
+    <!--End WebDriver-->
+  </TestRunParameters>
+</RunSettings>
