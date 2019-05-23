@@ -5,8 +5,7 @@
     <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
 
     <!--WebDriver-->
-    <Parameter name="IsLocalBrowser" value="true"/>
-    <Parameter name="Browser" value="Chrome"/>
+    <Parameter name="RunType" value="DirectConnection"/>
     <Parameter name="Timeout" value="60"/>
     <Parameter name="IsHeadlessMode" value="false"/>
     <!--End WebDriver-->
