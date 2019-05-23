@@ -81,6 +81,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         private IWebDriver CreateDriver()
         {
+            IWebDriver driver = null;
             switch (TestSettings.RunType)
             {
                 case "DirectConnection":
@@ -94,7 +95,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddArgument("--headless");
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                this.Driver = new ChromeDriver(chromeOptions);
+                                driver = new ChromeDriver(chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -105,7 +106,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 }
                                 firefoxOptions.UseLegacyImplementation = false;
                                 firefoxOptions.AddArgument("--start-maximized");
-                                this.Driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
+                                driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
                                 break;
                             default:
                                 throw new Exception("Driver was not created");
@@ -119,13 +120,13 @@ namespace Tests_For_TestInfrastructure_Course.app
                             case "Chrome":
                                 var chromeOptions = new ChromeOptions();
                                 chromeOptions.AddArgument("--start-maximized");
-                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
                                 var firefoxOptions = new FirefoxOptions();
                                 firefoxOptions.AddArgument("--start-maximized");
-                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                         }
                         break;
@@ -141,7 +142,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddAdditionalCapability("enableVNC", true, true);
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -151,7 +152,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     firefoxOptions.AddAdditionalCapability("enableVNC", true, true);
                                 }
                                 firefoxOptions.AddArgument("--start-maximized");
-                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                             case "Opera":
                                 var operaOptions = new OperaOptions();
@@ -160,7 +161,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     operaOptions.AddAdditionalCapability("enableVNC", true, true);
                                 }
                                 operaOptions.AddArgument("--start-maximized");
-                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
                                 break;
                         }
                         break;
@@ -168,9 +169,11 @@ namespace Tests_For_TestInfrastructure_Course.app
                 default:
                     throw new Exception("Driver was not created");
             }
-            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
-            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(TestSettings.Timeout);
-            Driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(TestSettings.Timeout);
+            this.Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TestSettings.Timeout));
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(TestSettings.Timeout);
+            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(TestSettings.Timeout);
+
+            return driver;
         }
     }
 }
