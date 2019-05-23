@@ -2,11 +2,13 @@
 <RunSettings>
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
+    <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
 
     <!--WebDriver-->
-    <Parameter name="RunType" value="SeleniumGrid"/>
-    <Parameter name="Browser" value="Chrome"/>
+    <Parameter name="RunType" value="DirectConnection"/>
     <Parameter name="Timeout" value="20"/>
+    <Parameter name="Browser" value="Chrome"/>
+    <Parameter name="IsHeadlessMode" value="false"/>
     <!--End WebDriver-->
   </TestRunParameters>
 </RunSettings>

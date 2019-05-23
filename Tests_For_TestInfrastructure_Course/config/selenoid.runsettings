@@ -3,12 +3,13 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
+    <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
 
     <!--WebDriver-->
-    <Parameter name="IsLocalBrowser" value="true"/>
-    <Parameter name="Browser" value="Chrome"/>
-    <Parameter name="Timeout" value="60"/>
-    <Parameter name="IsHeadlessMode" value="false"/>
+    <Parameter name="RunType" value="Selenoid"/>
+    <Parameter name="Browser" value="Opera"/>
+    <Parameter name="Timeout" value="20"/>
+    <Parameter name="EnableVnc" value="true"/>
     <!--End WebDriver-->
   </TestRunParameters>
 </RunSettings>
