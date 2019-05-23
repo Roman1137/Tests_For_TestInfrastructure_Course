@@ -17,7 +17,6 @@ namespace Tests_For_TestInfrastructure_Course.app
     public class Application
     {
         private static ConcurrentDictionary<string, IWebDriver> DriverCollection = new ConcurrentDictionary<string, IWebDriver>();
-        private static object locker = new object();
 
         public static IWebDriver Driver
         {
@@ -26,13 +25,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                 return DriverCollection.First(pair => pair.Key == TestContext.CurrentContext.Test.ID).Value;
             }
 
-            set
-            {
-                lock (locker)
-                {
-                    DriverCollection.TryAdd(TestContext.CurrentContext.Test.ID, value);
-                }
-            }
+            set => DriverCollection.TryAdd(TestContext.CurrentContext.Test.ID, value);
         }
 
         public WebDriverWait Wait { get; set; }
