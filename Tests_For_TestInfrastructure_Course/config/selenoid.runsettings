@@ -7,7 +7,8 @@
 
     <!--WebDriver-->
     <Parameter name="RunType" value="Selenoid"/>
-    <Parameter name="Timeout" value="60"/>
+    <Parameter name="Browser" value="Opera"/>
+    <Parameter name="Timeout" value="20"/>
     <Parameter name="EnableVnc" value="true"/>
     <!--End WebDriver-->
   </TestRunParameters>

@@ -6,7 +6,8 @@
 
     <!--WebDriver-->
     <Parameter name="RunType" value="DirectConnection"/>
-    <Parameter name="Timeout" value="60"/>
+    <Parameter name="Timeout" value="20"/>
+    <Parameter name="Browser" value="Chrome"/>
     <Parameter name="IsHeadlessMode" value="false"/>
     <!--End WebDriver-->
   </TestRunParameters>

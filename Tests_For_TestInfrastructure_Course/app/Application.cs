@@ -3,6 +3,8 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using Serilog;
@@ -67,41 +69,96 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         private void InitializeDriver()
         {
-            var options = new ChromeOptions();
             switch (TestSettings.RunType)
             {
                 case "DirectConnection":
-                {
-                    if (Boolean.Parse(TestSettings.IsHeadlessMode))
                     {
-                        options.AddArgument("--headless");
-                    }
-                    options.AddArgument("--start-maximized");
+                        switch (TestSettings.Browser)
+                        {
+                            case "Chrome":
+                                var chromeOptions = new ChromeOptions();
+                                if (Boolean.Parse(TestSettings.IsHeadlessMode))
+                                {
+                                    chromeOptions.AddArgument("--headless");
+                                }
+                                chromeOptions.AddArgument("--start-maximized");
+                                this.Driver = new ChromeDriver(chromeOptions);
+                                break;
 
-                    this.Driver = new ChromeDriver(options);
-                    break;
-                }
+                            case "Firefox":
+                                var firefoxOptions = new FirefoxOptions();
+                                if (Boolean.Parse(TestSettings.IsHeadlessMode))
+                                {
+                                    firefoxOptions.AddArgument("--headless");
+                                }
+                                firefoxOptions.UseLegacyImplementation = false;
+                                firefoxOptions.AddArgument("--start-maximized");
+                                this.Driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
+                                break;
+                            default:
+                                throw new Exception("Driver was not created");
+                        }
+                        break;
+                    }
                 case "SeleniumGrid":
-                {
-                    options.AddArgument("--start-maximized");
-
-                    this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
-                    break;
-                }
-                case "Selenoid":
-                {
-                    if (TestSettings.EnableVnc)
                     {
-                        options.AddAdditionalCapability("enableVNC", true, true);
+                        switch (TestSettings.Browser)
+                        {
+                            case "Chrome":
+                                var chromeOptions = new ChromeOptions();
+                                chromeOptions.AddArgument("--start-maximized");
+                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                break;
+
+                            case "Firefox":
+                                var firefoxOptions = new FirefoxOptions();
+                                firefoxOptions.AddArgument("--start-maximized");
+                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                break;
+                        }
+                        break;
                     }
-                    options.AddArgument("--start-maximized");
-                    Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
-                    break;
-                }
+                case "Selenoid":
+                    {
+                        switch (TestSettings.Browser)
+                        {
+                            case "Chrome":
+                                var chromeOptions = new ChromeOptions();
+                                if (TestSettings.EnableVnc)
+                                {
+                                    chromeOptions.AddAdditionalCapability("enableVNC", true, true);
+                                }
+                                chromeOptions.AddArgument("--start-maximized");
+                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                break;
+
+                            case "Firefox":
+                                var firefoxOptions = new FirefoxOptions();
+                                if (TestSettings.EnableVnc)
+                                {
+                                    firefoxOptions.AddAdditionalCapability("enableVNC", true, true);
+                                }
+                                firefoxOptions.AddArgument("--start-maximized");
+                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                break;
+                            case "Opera":
+                                var operaOptions = new OperaOptions();
+                                if (TestSettings.EnableVnc)
+                                {
+                                    operaOptions.AddAdditionalCapability("enableVNC", true, true);
+                                }
+                                operaOptions.AddArgument("--start-maximized");
+                                this.Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
+                                break;
+                        }
+                        break;
+                    }
                 default:
                     throw new Exception("Driver was not created");
             }
             this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
+            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(TestSettings.Timeout);
+            Driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(TestSettings.Timeout);
         }
     }
 }

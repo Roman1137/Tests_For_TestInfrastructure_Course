@@ -30,6 +30,7 @@ namespace Tests_For_TestInfrastructure_Course.config
         public static string RunType => TestContext.Parameters[nameof(RunType)];
         public static int Timeout => Int32.Parse(TestContext.Parameters[nameof(Timeout)]);
         public static string IsHeadlessMode => TestContext.Parameters[nameof(IsHeadlessMode)];
+        public static string Browser => TestContext.Parameters[nameof(Browser)];
         public static bool EnableVnc => Boolean.Parse(TestContext.Parameters[nameof(EnableVnc)]);
     }
 }
