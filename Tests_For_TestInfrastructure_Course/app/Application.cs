@@ -112,7 +112,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                     break;
                 }
                 default:
-                    throw new Exception("Driver was not initialized");
+                    throw new Exception("Driver was not created");
             }
             this.Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TestSettings.Timeout));
 
