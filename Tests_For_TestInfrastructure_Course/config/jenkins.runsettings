@@ -5,7 +5,8 @@
 
     <!--WebDriver-->
     <Parameter name="RunType" value="SeleniumGrid"/>
-    <Parameter name="Timeout" value="60"/>
+    <Parameter name="Browser" value="Chrome"/>
+    <Parameter name="Timeout" value="20"/>
     <!--End WebDriver-->
   </TestRunParameters>
 </RunSettings>
