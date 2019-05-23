@@ -34,7 +34,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public Application()
         {
-            Driver = GetDriver();
+            Driver = CreateDriver();
             InitializeLogger();
 
             this.ToDoPage = new ToDoPage(this);
@@ -77,8 +77,9 @@ namespace Tests_For_TestInfrastructure_Course.app
                 .CreateLogger();
         }
 
-        private IWebDriver GetDriver()
+        private IWebDriver CreateDriver()
         {
+            IWebDriver driver = null;
             var options = new ChromeOptions();
             switch (TestSettings.RunType)
             {
@@ -90,14 +91,14 @@ namespace Tests_For_TestInfrastructure_Course.app
                     }
                     options.AddArgument("--start-maximized");
 
-                    Driver = new ChromeDriver(options);
+                    driver = new ChromeDriver(options);
                     break;
                 }
                 case "SeleniumGrid":
                 {
                     options.AddArgument("--start-maximized");
 
-                    Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
+                    driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
                     break;
                 }
                 case "Selenoid":
@@ -107,11 +108,15 @@ namespace Tests_For_TestInfrastructure_Course.app
                         options.AddAdditionalCapability("enableVNC", true, true);
                     }
                     options.AddArgument("--start-maximized");
-                    Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
+                    driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, options);
                     break;
                 }
+                default:
+                    throw new Exception("Driver was not initialized");
             }
-            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
+            this.Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TestSettings.Timeout));
+
+            return driver;
         }
     }
 }
