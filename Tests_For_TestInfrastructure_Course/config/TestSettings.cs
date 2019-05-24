@@ -32,5 +32,6 @@ namespace Tests_For_TestInfrastructure_Course.config
         public static string IsHeadlessMode => TestContext.Parameters[nameof(IsHeadlessMode)];
         public static string Browser => TestContext.Parameters[nameof(Browser)];
         public static bool EnableVnc => Boolean.Parse(TestContext.Parameters[nameof(EnableVnc)]);
+        public static bool EnableVideoRecording => Boolean.Parse(TestContext.Parameters[nameof(EnableVideoRecording)]);
     }
 }

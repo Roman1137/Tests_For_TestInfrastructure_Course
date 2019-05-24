@@ -141,6 +141,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 {
                                     chromeOptions.AddAdditionalCapability("enableVNC", true, true);
                                 }
+                                if (TestSettings.EnableVideoRecording)
+                                {
+                                    chromeOptions.AddAdditionalCapability("enableVideo", true, true);
+                                }
                                 chromeOptions.AddArgument("--start-maximized");
                                 driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
@@ -151,6 +155,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 {
                                     firefoxOptions.AddAdditionalCapability("enableVNC", true, true);
                                 }
+                                if (TestSettings.EnableVideoRecording)
+                                {
+                                    firefoxOptions.AddAdditionalCapability("enableVideo", true, true);
+                                }
                                 firefoxOptions.AddArgument("--start-maximized");
                                 driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
@@ -159,6 +167,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 if (TestSettings.EnableVnc)
                                 {
                                     operaOptions.AddAdditionalCapability("enableVNC", true, true);
+                                }
+                                if (TestSettings.EnableVideoRecording)
+                                {
+                                    operaOptions.AddAdditionalCapability("enableVideo", true, true);
                                 }
                                 operaOptions.AddArgument("--start-maximized");
                                 driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
