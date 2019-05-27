@@ -25,6 +25,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public ToDoPage ToDoPage { get; set; }
         public FiledownloaderPage FiledownloaderPage { get; set; }
+        public FileuploadPage  FileuploadPage { get;set; }
 
         public Application()
         {
@@ -33,6 +34,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
             this.ToDoPage = new ToDoPage(this);
             this.FiledownloaderPage = new FiledownloaderPage(this);
+            this.FileuploadPage = new FileuploadPage(this);
         }
 
         public void Quit()

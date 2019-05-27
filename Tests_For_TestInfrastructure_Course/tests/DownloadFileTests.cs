@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using NUnit.Allure.Core;
+﻿using NUnit.Allure.Core;
 using NUnit.Framework;
 
 namespace Tests_For_TestInfrastructure_Course.tests

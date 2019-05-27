@@ -3,8 +3,10 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
-    <Parameter name="DownloadAppUrl" value="http://the-internet.herokuapp.com/download"/>>
     <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
+
+    <Parameter name="DownloadAppUrl" value="http://the-internet.herokuapp.com/download"/>>
+    <Parameter name="UploadAppUrl" value="http://the-internet.herokuapp.com/upload"/>>
 
     <!--WebDriver-->
     <Parameter name="RunType" value="Selenoid"/>

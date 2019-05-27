@@ -16,6 +16,7 @@ namespace Tests_For_TestInfrastructure_Course.config
             }
         }
         public static Uri DownloadAppUrl => new Uri(TestContext.Parameters[nameof(DownloadAppUrl)]);
+        public static Uri UploadAppUrl => new Uri(TestContext.Parameters[nameof(UploadAppUrl)]);
 
         public static Uri SeleniumClusterUrl
         {
