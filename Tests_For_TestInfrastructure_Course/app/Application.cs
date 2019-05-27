@@ -17,22 +17,31 @@ namespace Tests_For_TestInfrastructure_Course.app
 {
     public class Application
     {
-        private static ThreadLocal<IWebDriver> DriverThreadSave { get; set; }
+        private static ThreadLocal<Application> instance = new ThreadLocal<Application>();
 
-        public static IWebDriver Driver => DriverThreadSave.Value;
+        public static Application GetInstance()
+        {
+            if (! instance.IsValueCreated)
+            {
+                instance.Value = new Application();
+            }
+
+            return instance.Value;
+        }
+
+        public IWebDriver Driver { get; set; }
 
         public WebDriverWait Wait { get; set; }
 
         public ToDoPage ToDoPage { get; set; }
 
-        public Application()
+        private Application()
         {
             InitializeDriver();
             InitializeLogger();
 
             this.ToDoPage = new ToDoPage(this);
         }
-
         public void Quit()
         {
             bool isSomeTestFailed = TestContext.CurrentContext.Result.Outcome.Status == TestStatus.Failed;
@@ -85,7 +94,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddArgument("--headless");
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new ChromeDriver(chromeOptions));
+                                Driver = new ChromeDriver(Environment.CurrentDirectory, chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -96,7 +105,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 }
                                 firefoxOptions.UseLegacyImplementation = false;
                                 firefoxOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions));
+                                Driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
                                 break;
                             default:
                                 throw new Exception("Driver was not created");
@@ -110,13 +119,13 @@ namespace Tests_For_TestInfrastructure_Course.app
                             case "Chrome":
                                 var chromeOptions = new ChromeOptions();
                                 chromeOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions));
+                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
                                 var firefoxOptions = new FirefoxOptions();
                                 firefoxOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions));
+                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                         }
                         break;
@@ -140,7 +149,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions));
+                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -158,7 +167,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     firefoxOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 firefoxOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions));
+                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                             case "Opera":
                                 var operaOptions = new OperaOptions();
@@ -175,7 +184,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     operaOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 operaOptions.AddArgument("--start-maximized");
-                                DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions));
+                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
                                 break;
                         }
                         break;
