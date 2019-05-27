@@ -135,6 +135,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 {
                                     chromeOptions.AddAdditionalCapability("enableVideo", true, true);
                                 }
+                                if (TestSettings.EnableLogWritting)
+                                {
+                                    chromeOptions.AddAdditionalCapability("enableLog", true, true);
+                                }
                                 chromeOptions.AddArgument("--start-maximized");
                                 DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions));
                                 break;
@@ -149,6 +153,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 {
                                     firefoxOptions.AddAdditionalCapability("enableVideo", true, true);
                                 }
+                                if (TestSettings.EnableLogWritting)
+                                {
+                                    firefoxOptions.AddAdditionalCapability("enableLog", true, true);
+                                }
                                 firefoxOptions.AddArgument("--start-maximized");
                                 DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions));
                                 break;
@@ -161,6 +169,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 if (TestSettings.EnableVideoRecording)
                                 {
                                     operaOptions.AddAdditionalCapability("enableVideo", true, true);
+                                }
+                                if (TestSettings.EnableLogWritting)
+                                {
+                                    operaOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 operaOptions.AddArgument("--start-maximized");
                                 DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions));
