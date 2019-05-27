@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System.Threading;
 using Tests_For_TestInfrastructure_Course.app;
 
 namespace Tests_For_TestInfrastructure_Course.pages
@@ -13,5 +14,7 @@ namespace Tests_For_TestInfrastructure_Course.pages
             this.App = app;
             this.Driver = Application.Driver;
         }
+
+        protected void Wait() => Thread.Sleep(10000);
     }
 }

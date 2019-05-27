@@ -24,6 +24,7 @@ namespace Tests_For_TestInfrastructure_Course.app
         public WebDriverWait Wait { get; set; }
 
         public ToDoPage ToDoPage { get; set; }
+        public FiledownloaderPage FiledownloaderPage { get; set; }
 
         public Application()
         {
@@ -31,6 +32,7 @@ namespace Tests_For_TestInfrastructure_Course.app
             InitializeLogger();
 
             this.ToDoPage = new ToDoPage(this);
+            this.FiledownloaderPage = new FiledownloaderPage(this);
         }
 
         public void Quit()

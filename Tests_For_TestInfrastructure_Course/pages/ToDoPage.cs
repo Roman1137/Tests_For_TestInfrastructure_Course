@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using OpenQA.Selenium;
 using Serilog;
 using Tests_For_TestInfrastructure_Course.app;
@@ -83,7 +82,5 @@ namespace Tests_For_TestInfrastructure_Course.pages
             Log.Logger.Information("Clearing completed");
             Driver.FindElement(By.CssSelector("footer button.clear-completed")).Click();
         }
-
-        private void Wait() => Thread.Sleep(1);
     }
 }

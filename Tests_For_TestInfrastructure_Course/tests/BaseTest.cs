@@ -28,10 +28,10 @@ namespace Tests_For_TestInfrastructure_Course.tests
         [TearDown]
         public void DeleteAllItems()
         {
-            foreach (var toDoItem in this.App.ToDoPage.ToDoItems)
-            {
-                toDoItem.Delete();
-            }
+            //foreach (var toDoItem in this.App.ToDoPage.ToDoItems)
+            //{
+            //    toDoItem.Delete();
+            //}
         }
     }
 }
