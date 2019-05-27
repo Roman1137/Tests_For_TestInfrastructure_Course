@@ -26,6 +26,7 @@ namespace Tests_For_TestInfrastructure_Course.pages
 
             var url = $"http://localhost:4444/download/{GetSessionId()}/{fileName}";
             element.Click();
+            this.Wait();
             GetFileFromSelenoid(url, fileName);
             // список файлов по сессии: http://localhost:4444/download/c300c6565b56b27c6787159dc251f09f/
             // я так попробовал только что - проверял список
