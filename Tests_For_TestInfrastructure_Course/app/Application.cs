@@ -144,7 +144,10 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                chromeOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.Name, true);
+                                // TestContext.CurrentContext.Test.MethodName; works only in SetUp
+                                chromeOptions.AddAdditionalCapability("name",  Environment.GetEnvironmentVariable("testName"), true);
+                                // Does not work
+                                //chromeOptions.AddAdditionalCapability("timeZone", "Europe/Moscow", true);
                                 DriverThreadSave = new ThreadLocal<IWebDriver>(() => new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions));
                                 break;
 

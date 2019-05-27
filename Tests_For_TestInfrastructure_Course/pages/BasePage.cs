@@ -15,6 +15,6 @@ namespace Tests_For_TestInfrastructure_Course.pages
             this.Driver = Application.Driver;
         }
 
-        protected void Wait() => Thread.Sleep(10000);
+        protected void Wait() => Thread.Sleep(1);
     }
 }
