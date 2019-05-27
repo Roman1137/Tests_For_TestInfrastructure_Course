@@ -26,12 +26,20 @@ namespace Tests_For_TestInfrastructure_Course.pages
         public void DownloadFirstItem()
         {
             var element = Driver.FindElements(By.CssSelector("a"))[1];
-            element.Click();
+            
             var fileName = element.Text;
-            this.Wait();
+            //this.Wait();
 
             var url = $"http://localhost:4444/download/{GetSessionId()}/{fileName}";
+            element.Click();
             GetFileFromSelenoid(url, fileName);
+            // список файлов по сессии: http://localhost:4444/download/c300c6565b56b27c6787159dc251f09f/
+            // я так попробовал только что - проверял список
+            // дело в том, что там отображается файл, который ещё не полностью загружен
+            // файл, что загружен нормлально, имеет расширение .zip, а тот, что ещё не полностью - zip.crdownload
+
+            // http://localhost:4444/download/c300c6565b56b27c6787159dc251f09f/
+            // список всех файлов СПИСОК ФАЙЛОВ по сессии
         }
 
         private string GetSessionId()
