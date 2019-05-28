@@ -12,21 +12,26 @@ namespace Tests_For_TestInfrastructure_Course.tests
         protected Application App { get; set; }
 
         [OneTimeSetUp]
-        public void SetUp()
+        public void Configure()
         {
             Environment.SetEnvironmentVariable(
                 AllureConstants.ALLURE_CONFIG_ENV_VARIABLE,
                 Path.Combine(Environment.CurrentDirectory, AllureConstants.CONFIG_FILENAME));
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
             this.App = new Application();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
-            //this.App.Quit();
-            Application.Driver.Close();
-            Application.Driver.Quit();
-            Application.Driver.Quit();
+            this.App.Quit();
+            //Application.Driver.Close();
+            //Application.Driver.Quit();
+            //Application.Driver.Quit();
         }
 
         [TearDown]

@@ -51,7 +51,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                 this.TakeScreenShot();
             }
 
-            //Driver?.Close();
+            Driver?.Close();
             Driver?.Quit();
             Driver?.Dispose();
         }
