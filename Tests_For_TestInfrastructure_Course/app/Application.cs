@@ -148,6 +148,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 {
                                     chromeOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
+                                chromeOptions.AddAdditionalCapability("name", TestContext.CurrentContext.Test.MethodName, true);
                                 chromeOptions.AddArgument("--start-maximized");
                                 driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
