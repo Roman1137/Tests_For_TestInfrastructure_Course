@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Concurrent;
+using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
@@ -17,19 +18,17 @@ namespace Tests_For_TestInfrastructure_Course.app
 {
     public class Application
     {
-        private static ThreadLocal<Application> instance = new ThreadLocal<Application>();
+        private static ConcurrentDictionary<string, IWebDriver> DriverCollection = new ConcurrentDictionary<string, IWebDriver>();
 
-        public static Application GetInstance()
+        public static IWebDriver Driver
         {
-            if (! instance.IsValueCreated)
+            get
             {
-                instance.Value = new Application();
+                return DriverCollection.First(pair => pair.Key == TestContext.CurrentContext.Test.ID).Value;
             }
 
-            return instance.Value;
+            set => DriverCollection.TryAdd(TestContext.CurrentContext.Test.ID, value);
         }
-
-        public IWebDriver Driver { get; set; }
 
         public WebDriverWait Wait { get; set; }
 
@@ -37,7 +36,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         private Application()
         {
-            InitializeDriver();
+            Driver = CreateDriver();
             InitializeLogger();
 
             this.ToDoPage = new ToDoPage(this);
@@ -79,8 +78,9 @@ namespace Tests_For_TestInfrastructure_Course.app
                 .CreateLogger();
         }
 
-        private void InitializeDriver()
+        private IWebDriver CreateDriver()
         {
+            IWebDriver driver = null;
             switch (TestSettings.RunType)
             {
                 case "DirectConnection":
@@ -94,7 +94,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddArgument("--headless");
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                Driver = new ChromeDriver(Environment.CurrentDirectory, chromeOptions);
+                                driver = new ChromeDriver(Environment.CurrentDirectory, chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -105,7 +105,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                 }
                                 firefoxOptions.UseLegacyImplementation = false;
                                 firefoxOptions.AddArgument("--start-maximized");
-                                Driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
+                                driver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
                                 break;
                             default:
                                 throw new Exception("Driver was not created");
@@ -119,13 +119,13 @@ namespace Tests_For_TestInfrastructure_Course.app
                             case "Chrome":
                                 var chromeOptions = new ChromeOptions();
                                 chromeOptions.AddArgument("--start-maximized");
-                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
                                 var firefoxOptions = new FirefoxOptions();
                                 firefoxOptions.AddArgument("--start-maximized");
-                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                         }
                         break;
@@ -149,7 +149,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     chromeOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 chromeOptions.AddArgument("--start-maximized");
-                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, chromeOptions);
                                 break;
 
                             case "Firefox":
@@ -167,7 +167,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     firefoxOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 firefoxOptions.AddArgument("--start-maximized");
-                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, firefoxOptions);
                                 break;
                             case "Opera":
                                 var operaOptions = new OperaOptions();
@@ -184,7 +184,7 @@ namespace Tests_For_TestInfrastructure_Course.app
                                     operaOptions.AddAdditionalCapability("enableLog", true, true);
                                 }
                                 operaOptions.AddArgument("--start-maximized");
-                                Driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
+                                driver = new RemoteWebDriver(TestSettings.SeleniumClusterUrl, operaOptions);
                                 break;
                         }
                         break;
@@ -192,9 +192,11 @@ namespace Tests_For_TestInfrastructure_Course.app
                 default:
                     throw new Exception("Driver was not created");
             }
-            this.Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(TestSettings.Timeout));
-            Driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(TestSettings.Timeout);
-            Driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(TestSettings.Timeout);
+            this.Wait = new WebDriverWait(driver, TimeSpan.FromSeconds(TestSettings.Timeout));
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(TestSettings.Timeout);
+            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(TestSettings.Timeout);
+
+            return driver;
         }
     }
 }
