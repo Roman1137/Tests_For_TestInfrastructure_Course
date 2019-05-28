@@ -34,7 +34,7 @@ namespace Tests_For_TestInfrastructure_Course.app
 
         public ToDoPage ToDoPage { get; set; }
 
-        private Application()
+        public Application()
         {
             Driver = CreateDriver();
             InitializeLogger();
