@@ -11,8 +11,6 @@ namespace Tests_For_TestInfrastructure_Course.pages
 {
     public class ToDoPage : BasePage
     {
-        public ToDoPage(Application app)  { }
-
         public IList<ToDoItem> ToDoItems
         {
             get

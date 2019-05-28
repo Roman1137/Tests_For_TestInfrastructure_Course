@@ -41,7 +41,7 @@ namespace Tests_For_TestInfrastructure_Course.app
             InitializeDriver();
             InitializeLogger();
 
-            this.ToDoPage = new ToDoPage(this);
+            this.ToDoPage = new ToDoPage();
         }
         public void Quit()
         {
@@ -51,9 +51,9 @@ namespace Tests_For_TestInfrastructure_Course.app
                 this.TakeScreenShot();
             }
 
-            Driver.Close();
-            Driver.Quit();
-            Driver.Dispose();
+            //Driver?.Close();
+            Driver?.Quit();
+            Driver?.Dispose();
         }
 
         private void TakeScreenShot()

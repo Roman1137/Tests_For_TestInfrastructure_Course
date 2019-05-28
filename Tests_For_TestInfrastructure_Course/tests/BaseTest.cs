@@ -2,6 +2,7 @@
 using System.IO;
 using Allure.Commons;
 using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using Tests_For_TestInfrastructure_Course.app;
 
 namespace Tests_For_TestInfrastructure_Course.tests
@@ -22,7 +23,10 @@ namespace Tests_For_TestInfrastructure_Course.tests
         [OneTimeTearDown]
         public void TearDown()
         {
-            this.App.Quit();
+            //this.App.Quit();
+            Application.Driver.Close();
+            Application.Driver.Quit();
+            Application.Driver.Quit();
         }
 
         [TearDown]
