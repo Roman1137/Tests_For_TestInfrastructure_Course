@@ -3,7 +3,7 @@
   <!-- Parameters used by tests at runtime -->
   <TestRunParameters>
     <Parameter name="ToDoApplicationUrl" value="http://todomvc.com/examples/vue/"/>>
-    <Parameter name="SeleniumClusterUrl" value="http://localhost:4444/wd/hub"/>>
+    <Parameter name="SeleniumClusterUrl" value="http://myUserName:myUserPassword@localhost:5050/wd/hub"/>>
 
     <!--WebDriver-->
     <Parameter name="RunType" value="Selenoid"/>
