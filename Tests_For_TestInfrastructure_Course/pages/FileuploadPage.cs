@@ -30,6 +30,9 @@ namespace Tests_For_TestInfrastructure_Course.pages
 
             // был exception, но решил с помощью ссылки ниже
             // https://stackoverflow.com/questions/49215791/vs-code-c-sharp-system-notsupportedexception-no-data-is-available-for-encodin
+            
+            // https://stackoverflow.com/questions/50858209/system-notsupportedexception-no-data-is-available-for-encoding-1252/50875725
+            // just added nuget package System.Text.Encoding.CodePages 
             System.Text.Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             var filePath = $"{Environment.CurrentDirectory}\\cat.jpg";
